@@ -44,6 +44,9 @@
     "no-restricted-globals": "error",
     "no-unused-vars": "error",
     "no-use-before-define": "error",
+
+    "complexity": "error",
+    "consistent-return": "error",
     // Best Practices -- end
     "react/require-default-props": [
       "error",
@@ -60,6 +63,7 @@
 
     // Variables -- end
     "camelcase": "off",
+    "import/no-extraneous-dependencies": "off",
     "react-hooks/exhaustive-deps": "off",
     "import/named": "off",
     "no-undef": "off",
@@ -86,8 +90,7 @@
     "array-callback-return": "off",
     "block-scoped-var": "off",
     "class-methods-use-this": "off",
-    "complexity": "off",
-    "consistent-return": "off",
+
     "curly": "off",
     "default-case": "off",
     "default-case-last": "off",

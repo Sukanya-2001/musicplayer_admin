@@ -1,22 +1,14 @@
-import ApiRequest from "../axiosInstance/request";
+import axiosInstance from "../axiosInstance";
 import { endpoints } from "../endpoints";
 
 export const fetchAboutUs = async () => {
-  try {
-    const res = await ApiRequest.get(endpoints.cms.about);
-    return res;
-  } catch (error) {
-    return error;
-  }
+  const res = await axiosInstance.get(endpoints.cms.about);
+  return res;
 };
 
 // Faq
-export const faqQuery =  () => {
-  try {
-  const res =  ApiRequest.get(endpoints.cms.faq);
+export const faqQuery = () => {
+  const res = axiosInstance.get(endpoints.cms.faq);
 
   return res;
-} catch (error) {
-  return error;
-}
 };

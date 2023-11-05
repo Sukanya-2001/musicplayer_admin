@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import Seo from "@/components/Seo/Seo";
-import useOnlineStatus from "@/hooks/useDetectOnline";
+import useOnlineStatus from "@/hooks/utils/useDetectOnline";
 import { WrapperStyle } from "@/styles/StyledComponents/WrapperStyle";
 import { primaryColors } from "@/themes/_muiPalette";
 import Backdrop from "@mui/material/Backdrop";

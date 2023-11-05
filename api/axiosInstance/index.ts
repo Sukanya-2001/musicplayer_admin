@@ -1,23 +1,22 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { parseCookies } from "nookies";
-import { setCookieClient } from "@/lib/functions/storage.lib";
+import { BaseApiResponse } from "@/interface/common.interface";
 import {
   globalCatchError,
   globalCatchSucess,
-  globalCatchWarning,
+  globalCatchWarning
 } from "@/lib/functions/_helpers.lib";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { parseCookies } from "nookies";
 import { baseUrlApi, sucessNotificationEndPoints } from "../endpoints";
 // import { refreshAccessToken } from "../functions/user.api";
-import { BaseApiResponse } from "@/interface/common.interface";
 
 const axiosInstance = axios.create({
-  baseURL: baseUrlApi,
+  baseURL: baseUrlApi
 });
 
 axiosInstance.interceptors.request.use((config) => {
   const cookies = parseCookies();
 
-  const token = cookies?.career_token;
+  const token = cookies[process.env.NEXT_APP_TOKEN_NAME!];
   if (token && !!config.headers) {
     config.headers["x-access-token"] = `${token}`;
   }
@@ -42,7 +41,7 @@ axiosInstance.interceptors.response.use(
   async (error: AxiosError<BaseApiResponse>) => {
     globalCatchError(error);
     // const { data, status, config } = error.response!;
-    const originalRequest = error.config;
+    // const originalRequest = error.config;
 
     // if (error.response.status === 401 && !originalRequest._retry) {
     //   originalRequest._retry = true;

@@ -2,7 +2,7 @@ import { CommonMuiInputProps } from "@/interface/common.interface";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { forwardRef, useId } from "react";
+import { forwardRef } from "react";
 
 const CustomInputWith_forwardRef = ({
   error = false,
@@ -15,13 +15,11 @@ const CustomInputWith_forwardRef = ({
   startAdornment,
   endAdornment
 }: CommonMuiInputProps) => {
-  const id = useId();
   return (
     <FormControl error={error} fullWidth>
       {label}
       <OutlinedInput
         error={error}
-        id={id}
         type={type}
         value={value}
         onChange={onChange}

@@ -17,16 +17,9 @@ module.exports = withPWA({
     includePaths: [path.join(__dirname, "styles")]
   },
   images: {
-    domains: [
-      "fakestoreapi.com",
-      "api.lorem.space",
-      "picsum.photos",
-      "placeimg.com",
-      "encrypted-tbn0.gstatic.com",
-      "career-utility.dedicateddevelopers.us"
-    ]
+    domains: ["career-utility.dedicateddevelopers.us"]
   },
-  swcMinify: false,
+  swcMinify: true,
   compress: true,
   optimizeFonts: true,
   devIndicators: {
@@ -38,5 +31,6 @@ module.exports = withPWA({
   },
   env: {
     NEXT_APP_BASE_URL: process.env.NEXT_APP_BASE_URL
-  }
+  },
+  typescript: { ignoreBuildErrors: false }
 });

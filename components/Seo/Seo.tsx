@@ -1,7 +1,6 @@
-import React from "react";
 import { NextSeo } from "next-seo";
 
-interface SeoProps  {
+interface SeoProps {
   title: string;
   canonical: string;
   description: string;
@@ -12,7 +11,7 @@ interface SeoProps  {
   twitter_site?: string;
   noindex?: boolean;
   image: string;
-};
+}
 
 const Seo = ({
   title,

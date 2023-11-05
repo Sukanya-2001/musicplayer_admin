@@ -1,20 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logger from "redux-logger";
+
 import rootReducer from "../slices/rootReducer";
 
 // ...
 
 //Middlewares
-const config = {
-  // Overwrite existing state with incoming state
-  receiveState: (prevState: any, nextState: any) => nextState
-};
-
-const middleware = [ logger];
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware,
   devTools: process.env.NODE_ENV === "development"
 });
 
