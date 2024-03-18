@@ -41,8 +41,12 @@ export const primaryColors = {
   chipErrorText: "#9B3858",
   cardShadow: "#0707070F",
   tableshadow: "rgba(7, 7, 7, 0.06)",
-  secondaryFont:"#4D4E4E",
-  tertiaryFont:"#585858",
+  secondaryFont: "#4D4E4E",
+  tertiaryFont: "#585858",
+  color060606: "#060606",
+  colorF6EFF8: "#F6EFF8",
+  colorfdf8ff: "#fdf8ff",
+  color2F3240: "#2F3240"
 };
 
 export const pallete = (mode: PaletteMode): PaletteOptions => {

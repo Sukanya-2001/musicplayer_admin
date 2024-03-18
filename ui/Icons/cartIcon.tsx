@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { CustomIconProps } from "@/interface/icons.interface";
 import { primaryColors } from "@/themes/_muiPalette";
-import React from "react";
 
 export default function CartIcon({
   IconColor,
