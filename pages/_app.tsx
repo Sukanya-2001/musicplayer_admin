@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import EventListeners from "@/components/EventListener/EventListener";
 import { checkWindow } from "@/lib/functions/_helpers.lib";
-import { store } from "@/reduxtoolkit/store/store";
+import { persistor, store } from "@/reduxtoolkit/store/store";
 import "@/styles/global.scss";
 import MuiThemeProvider from "@/themes/MuiThemeProvider";
 import createEmotionCache from "@/themes/createEmotionCache";
@@ -12,6 +12,7 @@ import type { AppContext, AppProps } from "next/app";
 import App from "next/app";
 import React from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "sonner";
 
 /**
@@ -51,17 +52,19 @@ export default function CustomApp({
 
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <CacheProvider value={emotionCache}>
-          <MuiThemeProvider>
-            <CssBaseline />
-            <Toaster richColors position="bottom-left" />
+      <PersistGate loading={null} persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <CacheProvider value={emotionCache}>
+            <MuiThemeProvider>
+              <CssBaseline />
+              <Toaster richColors position="bottom-left" />
 
-            <EventListeners />
-            <Component {...pageProps} />
-          </MuiThemeProvider>
-        </CacheProvider>
-      </QueryClientProvider>
+              <EventListeners />
+              <Component {...pageProps} />
+            </MuiThemeProvider>
+          </CacheProvider>
+        </QueryClientProvider>
+      </PersistGate>
     </Provider>
   );
 }
