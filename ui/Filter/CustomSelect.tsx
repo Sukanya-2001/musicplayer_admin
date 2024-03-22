@@ -37,10 +37,10 @@ const CustomSelectWrapper = styled(Select)`
     }
   }
 `;
-interface CustomSelectProps extends SelectProps {
-  children: React.ReactNode;
-}
-const CustomSelect = (props: CustomSelectProps) => {
+interface CustomSelectProps extends SelectProps {}
+const CustomSelect: React.FC<CustomSelectProps & SelectProps> = ({
+  ...props
+}) => {
   const MenuProps = {
     PaperProps: {
       style: {
