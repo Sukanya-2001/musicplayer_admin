@@ -12,7 +12,7 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 interface wrapperProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 }
 
 const Wrapper = (props: wrapperProps) => {
