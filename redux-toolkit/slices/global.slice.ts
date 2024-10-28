@@ -7,6 +7,7 @@ const initialState: globalStateInterface = {
 
 const globalSlice = createSlice({
   name: "globalSlice",
+
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -16,8 +17,7 @@ const globalSlice = createSlice({
     decrement: (state) => {
       state.counter -= 1;
     }
-  },
-  extraReducers: {}
+  }
 });
 
 export const { increment, decrement } = globalSlice.actions;

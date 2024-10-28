@@ -45,8 +45,6 @@ export type userData = {
   about_title?: string;
   about_description?: string;
   cover_picture?: string;
-}
-
-
+};
 
 export {};

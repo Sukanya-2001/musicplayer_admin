@@ -1,127 +1,77 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/require-default-props */
-import { primaryColors } from "@/themes/_muiPalette";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-// eslint-disable-next-line import/order
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import TextField, { StandardTextFieldProps } from "@mui/material/TextField";
 import { styled } from "@mui/system";
-
 import React, { forwardRef } from "react";
 
-const InputWrap = styled(TextField as any)`
-  .MuiInputBase-adornedEnd {
-    height: auto;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--white);
-    border-radius: 10px;
-    padding: 6.5px 16px;
-    border: 1px solid ${primaryColors?.disabledBg};
-    background: ${primaryColors?.white};
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.06);
-    min-width: 300px;
-    @media (max-width: 600px) {
-      padding: 5px 10px;
-    }
+const InputWrap = styled(TextField)(({ theme }) => ({
+  ".MuiInputBase-adornedEnd": {
+    height: "auto",
+    boxSizing: "border-box",
+    fontSize: "16px",
+    fontWeight: 400,
+    color: theme.palette.text.primary, // dynamic color from theme
+    borderRadius: "10px",
+    padding: "6.5px 16px",
+    boxShadow: "0px 1px 3px 0px rgba(0, 0, 0, 0.06)",
+    minWidth: "300px",
+    "@media (max-width: 600px)": {
+      padding: "5px 10px"
+    },
 
-    input[type="text"],
-    input[type="email"],
-    input[type="url"],
-    input[type="password"],
-    input[type="search"],
-    input[type="number"],
-    input[type="tel"],
-    input[type="range"],
-    input[type="date"],
-    input[type="month"],
-    input[type="week"],
-    input[type="time"],
-    input[type="datetime"],
-    input[type="datetime-local"],
-    input[type="color"],
-    textarea {
-      color: ${primaryColors?.textPrimaryColor};
-      border: 0;
-      padding-left: 0;
-      &::placeholder {
-        color: ${primaryColors?.mainFontColor};
-        opacity: 1;
+    "input, textarea": {
+      border: 0,
+      paddingLeft: 0,
+      "&::placeholder": {
+        color: theme.palette.text.disabled, // dynamic color from theme
+        opacity: 1
+      },
+      "&:focus": {
+        border: 0,
+        background: "transparent"
       }
-      &:focus {
-        border: 0;
-        background: transparent;
+    },
+
+    textarea: {
+      height: "125px !important",
+      padding: "20px 10px 20px 51px",
+      "@media (max-width: 600px)": {
+        padding: "20px 10px 20px 30px"
       }
-    }
-    textarea {
-      height: 125px !important;
-      padding: 20px 10px 20px 51px;
-      @media (max-width: 600px) {
-        padding: 20px 10px 20px 30px;
+    },
+
+    "&.Mui-error": {
+      "input, textarea": {
+        color: theme.palette.error.main // dynamic color for error state
       }
-    }
-    &.Mui-error {
-      input[type="text"],
-      input[type="email"],
-      input[type="url"],
-      input[type="password"],
-      input[type="search"],
-      input[type="number"],
-      input[type="tel"],
-      input[type="range"],
-      input[type="date"],
-      input[type="month"],
-      input[type="week"],
-      input[type="time"],
-      input[type="datetime"],
-      input[type="datetime-local"],
-      input[type="color"],
-      textarea {
-        border-color: ${primaryColors?.errorMain};
-      }
-    }
-    .MuiOutlinedInput-notchedOutline {
-      display: none;
-      /* border-color: var(--primaryD3D7DF); */
-    }
-    #outlined-adornment-password {
-      border: 0;
-      padding: 0;
-      height: 39px;
-      font-size: 16px;
-      &::placeholder {
-        color: ${primaryColors?.mainFontColor};
-        opacity: 1;
-      }
-    }
-    button {
-      background-color: transparent;
-      color: var(--textPrimaryColor);
-      padding: 0;
-      &:focus {
-        background-color: transparent;
-        color: var(--textPrimaryColor);
-      }
-      &:hover {
-        background-color: transparent;
-        color: var(--textPrimaryColor);
-      }
-      img {
-        position: static !important;
-        transform: inherit !important;
-        top: 0;
-        left: 0;
-        width: 20px;
-      }
-      svg {
-        font-size: 20px;
+    },
+
+    ".MuiOutlinedInput-notchedOutline": {
+      display: "none"
+    },
+
+    "#outlined-adornment-password": {
+      border: 0,
+      padding: 0,
+      height: "39px",
+      fontSize: "16px"
+    },
+
+    button: {
+      backgroundColor: "transparent",
+      padding: 0,
+      "&:focus, &:hover": {
+        backgroundColor: "transparent"
+      },
+      svg: {
+        fontSize: "20px",
+        color: theme.palette.text.secondary // dynamic color from theme
       }
     }
   }
-`;
+}));
 
 type InputFieldCommonProps = StandardTextFieldProps & {
   isPassword?: boolean;
@@ -139,6 +89,7 @@ const InputFieldCommon = forwardRef<HTMLInputElement, InputFieldCommonProps>(
     ) => {
       event.preventDefault();
     };
+
     return (
       <InputWrap
         fullWidth
@@ -159,14 +110,7 @@ const InputFieldCommon = forwardRef<HTMLInputElement, InputFieldCommonProps>(
             </InputAdornment>
           ) : (
             <InputAdornment position="end">
-              <IconButton
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                disableRipple
-              >
-                {/* <SearchRoundedIcon/> */}
-                {adorMentIcon}
-              </IconButton>
+              <IconButton disableRipple>{adorMentIcon}</IconButton>
             </InputAdornment>
           )
         }}

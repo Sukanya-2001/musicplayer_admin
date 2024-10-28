@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 
 import Stack, { StackProps } from "@mui/material/Stack";
-
-import { primaryColors } from "@/themes/_muiPalette";
 import React, { useCallback, useState } from "react";
 import DashboardHeader from "../DashboardHeader/DashboardHeader";
 import DashboardSidebar from "../DashboardSidebar/DashboardSidebar";
@@ -58,7 +56,7 @@ export const DashboardWrapperStyled = styled(Stack, {
   }
   .dashboard_body {
     padding: 30px 30px;
-    background: ${primaryColors?.colorfdf8ff};
+
     border-radius: 20px;
     height: calc(100vh - (40px + ${({ headerHeight }) => `${headerHeight}px`}));
     overflow-y: auto;
@@ -66,6 +64,5 @@ export const DashboardWrapperStyled = styled(Stack, {
   .common_box {
     padding: 16px 20px;
     border-radius: 10px;
-    background-color: ${primaryColors?.white};
   }
 `;

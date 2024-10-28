@@ -1,10 +1,9 @@
 import animationData from "@/json/lottie/404.json";
 import { checkWindow } from "@/lib/functions/_helpers.lib";
-import styles from "@/styles/pages/404.module.scss";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
+import { Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import dynamic from "next/dynamic";
-// import CustomButton from "@/ui/Buttons/CustomButton";
 
 const Lottie = dynamic(() => import("lottie-react"));
 const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"));
@@ -15,10 +14,11 @@ const Index = () => {
       window.location.reload();
     }
   };
+
   return (
     <Wrapper>
-      <div className={styles.container}>
-        <div className={styles.inner}>
+      <Stack direction="row" alignItems="center" justifyContent="center" p={2}>
+        <div>
           <h1>Something Went wrong</h1>
           <Lottie
             animationData={animationData}
@@ -39,7 +39,7 @@ const Index = () => {
             <Typography>Error</Typography>
           </CustomButtonPrimary>
         </div>
-      </div>
+      </Stack>
     </Wrapper>
   );
 };

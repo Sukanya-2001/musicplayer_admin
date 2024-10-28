@@ -75,6 +75,7 @@ CustomApp.getInitialProps = async (context: AppContext) => {
 
   // // resetServerContext();
   const appProps = await App.getInitialProps(context);
+
   // return { user: data?.authenticatedItem, ...appProps };
 
   return { ...appProps };

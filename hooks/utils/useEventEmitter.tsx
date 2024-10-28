@@ -20,6 +20,7 @@ const useEventEmitter = (
     if (eventName?.trim()) {
       eventEmitter.on(eventName, handleEvent);
     }
+
     return () => {
       eventEmitter.off(eventName, handleEvent);
     };

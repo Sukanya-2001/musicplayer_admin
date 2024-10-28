@@ -31,7 +31,6 @@
   ],
   "rules": {
     "no-console": "error",
-    "mui-path-imports/mui-path-imports": "error",
     //no used vars
     "unused-imports/no-unused-imports": "error",
     "no-useless-escape": "error",

@@ -1,5 +1,11 @@
 /* eslint-disable no-console */
 
+import { useAppDispatch } from "@/hooks/redux/useAppDispatch";
+import { useAppSelector } from "@/hooks/redux/useAppSelector";
+import assest from "@/json/assest";
+import { logout } from "@/reduxtoolkit/slices/userSlice";
+import { HeaderWrap } from "@/styles/StyledComponents/HeaderWrapper";
+import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -12,21 +18,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-
-import { useAppDispatch } from "@/hooks/redux/useAppDispatch";
-import { useAppSelector } from "@/hooks/redux/useAppSelector";
-import assest from "@/json/assest";
-import { logout } from "@/reduxtoolkit/slices/userSlice";
-import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
-
-import { HeaderWrap } from "@/styles/StyledComponents/HeaderWrapper";
-import CartIcon from "@/ui/Icons/cartIcon";
-import Badge from "@mui/material/Badge";
 import { Container } from "@mui/system";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import * as React from "react";
 
 // const CustomButton = dynamic(() => import("@/ui/Buttons/CustomButton"));
 
@@ -167,11 +163,7 @@ export default function Header() {
               </Box>
             )}
             <Box className="hdr_rgt">
-              <Box className="cart_icon">
-                <Badge color="primary" variant="dot">
-                  <CartIcon />
-                </Badge>
-              </Box>
+              <Box className="cart_icon"></Box>
               <CustomButtonPrimary
                 type="button"
                 variant="contained"

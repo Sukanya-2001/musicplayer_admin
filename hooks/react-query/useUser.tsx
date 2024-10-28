@@ -17,6 +17,7 @@ const useUser = () => {
     queryKey: ["userdetails"],
     queryFn: GetProfileDetails,
     enabled: !!token && userData === null
+
     // onSuccess(data) {
     //   if (data?.data?.status === 401) {
     //     dispatch(logout());

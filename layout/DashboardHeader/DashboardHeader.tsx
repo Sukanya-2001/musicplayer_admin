@@ -1,13 +1,5 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-unused-vars */
-/* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable no-use-before-define */
 import assest from "@/json/assest";
-import { primaryColors } from "@/themes/_muiPalette";
-import DownIcon from "@/ui/Icons/DownIcon";
-import NotificationBellIcon from "@/ui/Icons/NotificationBellIcon";
 import styled from "@emotion/styled";
-// eslint-disable-next-line mui-path-imports/mui-path-imports
 import {
   Box,
   BoxProps,
@@ -17,6 +9,7 @@ import {
   Stack,
   Typography
 } from "@mui/material";
+import { useTheme } from "@mui/system";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -30,13 +23,11 @@ export const DashboardHeaderStyled = styled(Box)`
     h1 {
       font-weight: 600;
       font-size: 23px;
-      color: ${primaryColors?.color060606};
     }
   }
   .notification_icon {
     width: 47px;
     height: 42px;
-    background: ${primaryColors?.primary_600};
     border-radius: 5px;
     min-width: auto;
     padding: 0;
@@ -51,7 +42,6 @@ export const DashboardHeaderStyled = styled(Box)`
         width: 8px;
         height: 8px;
         border-radius: 100%;
-        background-color: ${primaryColors?.primary};
         position: absolute;
         right: 0;
         top: 1px;
@@ -67,7 +57,6 @@ export const DashboardHeaderStyled = styled(Box)`
   .avatar_btn {
     padding: 5px 12px;
     border-radius: 5px;
-    border: 1px solid ${primaryColors?.primary};
     i {
       display: flex;
       align-items: center;
@@ -76,7 +65,6 @@ export const DashboardHeaderStyled = styled(Box)`
       height: 30px;
       border-radius: 100%;
       overflow: hidden;
-      border: 1px solid ${primaryColors?.primary};
       margin-right: 10px;
       img {
         width: 100%;
@@ -90,7 +78,6 @@ export const DashboardHeaderStyled = styled(Box)`
       font-size: 15px;
       line-height: 1.5;
       text-transform: capitalize;
-      color: ${primaryColors?.color060606};
     }
     span {
       display: flex;
@@ -114,7 +101,7 @@ const DashboardHeader: React.FC<headerProps & BoxProps> = ({
   const avatarBlockRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState<number | undefined>(0);
   const [avatarMenuWidth, setAvatarMenuWidth] = useState<number | undefined>(0);
-
+  const { palette } = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -173,12 +160,6 @@ const DashboardHeader: React.FC<headerProps & BoxProps> = ({
           className="header_options"
           ref={avatarBlockRef}
         >
-          <Button className="notification_icon" disableRipple>
-            <Typography variant="caption" className="is_active">
-              <NotificationBellIcon IconColor={primaryColors?.color060606} />
-            </Typography>
-          </Button>
-
           <Box className="avatar_block">
             <Button
               id="basic-button"
@@ -198,9 +179,6 @@ const DashboardHeader: React.FC<headerProps & BoxProps> = ({
                 />
               </Typography>
               <Typography>Howard</Typography>
-              <Typography variant="caption">
-                <DownIcon />
-              </Typography>
             </Button>
             <AvatarMenu
               id="basic-menu"
@@ -230,7 +208,7 @@ export const AvatarMenu = styled(Menu, {
 })<{ avatarMenuWidth: number | undefined }>`
   .MuiPaper-root {
     width: ${({ avatarMenuWidth }) => `${avatarMenuWidth}px`};
-    background: ${primaryColors?.white};
+
     box-shadow: 0px 3px 28px -6px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     ul {
@@ -241,7 +219,7 @@ export const AvatarMenu = styled(Menu, {
         font-size: 15px;
         line-height: 1.5;
         text-transform: capitalize !important;
-        color: ${primaryColors?.color2F3240};
+
         padding: 9px 0;
         &:first-child {
           padding-top: 0px;
@@ -251,7 +229,6 @@ export const AvatarMenu = styled(Menu, {
         }
         &:hover {
           background-color: transparent;
-          color: ${primaryColors?.primary};
         }
       }
     }

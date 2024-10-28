@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-props-no-spreading */
 import createEmotionCache from "@/themes/createEmotionCache";
+
 // import theme from "@/themes/theme";
 import createEmotionServer from "@emotion/server/create-instance";
 import { AppType } from "next/app";
@@ -24,7 +25,7 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
     <Html lang="en">
       <Head>
         {/* PWA primary color */}
-        {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
+
         <link rel="shortcut icon" href="/favicon.ico" />
         <link
           rel="stylesheet"
@@ -84,6 +85,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
     });
 
   const initialProps = await Document.getInitialProps(ctx);
+
   // This is important. It prevents Emotion to render invalid HTML.
   // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
   const emotionStyles = extractCriticalToChunks(initialProps.html);

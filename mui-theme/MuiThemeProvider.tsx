@@ -1,10 +1,31 @@
 import React, { useMemo } from "react";
+
 // material-ui
 import CssBaseline from "@mui/material/CssBaseline";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
-import { ThemeProvider,createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { MuiThemeOptions } from "./_muiTheme";
 
+// const ThemeComponent = (props: Props) => {
+//   // ** Props
+//   const { settings, children } = props
+
+//   // ** Pass merged ThemeOptions (of core and user) to createTheme function
+//   let theme = createTheme(themeOptions(settings, 'light'))
+
+//   // ** Set responsive font sizes to true
+//   if (themeConfig.responsiveFontSizes) {
+//     theme = responsiveFontSizes(theme)
+//   }
+
+//   return (
+//     <ThemeProvider theme={theme}>
+//       <CssBaseline />
+//       <GlobalStyles styles={() => GlobalStyling(theme) as any} />
+//       {children}
+//     </ThemeProvider>
+//   )
+// }
 
 // Mui theme set up provider for whole application
 
@@ -14,8 +35,6 @@ const MuiThemeProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const theme = createTheme(themeOptions);
-
-
 
   return (
     <StyledEngineProvider injectFirst>

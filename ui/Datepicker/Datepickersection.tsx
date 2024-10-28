@@ -1,6 +1,5 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-extraneous-dependencies */
-import { primaryColors } from "@/themes/_muiPalette";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -23,13 +22,9 @@ const DatepickerWrapper = styled(Box)`
 
     border-radius: 8px;
 
-    fieldset {
-      border-color: ${primaryColors.border_primary};
-    }
     .MuiFormControl-root {
       width: 100%;
       .MuiFormLabel-root {
-        color: ${primaryColors.textPrimaryColor};
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5;
@@ -39,7 +34,6 @@ const DatepickerWrapper = styled(Box)`
         }
       }
       .MuiInputBase-root {
-        color: ${primaryColors.textPrimaryColor};
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5;
@@ -79,17 +73,7 @@ const DatepickerWrapper = styled(Box)`
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: ${primaryColors.white};
     z-index: 99;
-
-    &.MuiFormControl-root {
-      .MuiInputBase-root {
-        input {
-          background: url(/static/media/calendar.76ae0bfa8a0f53edac2f8208d3eb2680.svg)
-            center right 14px no-repeat;
-        }
-      }
-    }
   }
 `;
 interface DatePickerProps {
@@ -135,8 +119,8 @@ const TimeFormatReturn = ({ hour, minute }: DateTimeType) => {
         ? hour - 12
         : `0${hour - 12}`
       : hour > 9
-      ? hour
-      : `0${hour}`
+        ? hour
+        : `0${hour}`
   } : ${minute > 9 ? minute : `0${minute}`} ${hour >= 12 ? `PM` : `AM`}
    `;
 };

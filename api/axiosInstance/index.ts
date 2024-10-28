@@ -7,6 +7,7 @@ import {
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { parseCookies } from "nookies";
 import { baseUrlApi, sucessNotificationEndPoints } from "../endpoints";
+
 // import { refreshAccessToken } from "../functions/user.api";
 
 const axiosInstance = axios.create({
@@ -40,6 +41,7 @@ axiosInstance.interceptors.response.use(
   },
   async (error: AxiosError<BaseApiResponse>) => {
     globalCatchError(error);
+
     // const { data, status, config } = error.response!;
     // const originalRequest = error.config;
 

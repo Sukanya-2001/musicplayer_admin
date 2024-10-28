@@ -1,7 +1,8 @@
-import { AxiosError,AxiosResponse } from 'axios';
-import events from '@/json/events/events';
-import eventEmitter from 'services/event.emitter';
-import { BaseApiResponse } from '@/interface/common.interface';
+import { AxiosError, AxiosResponse } from "axios";
+import events from "@/json/events/events";
+import eventEmitter from "services/event.emitter";
+import { BaseApiResponse } from "@/interface/common.interface";
+
 /**
  * Check if the window object exists.
  * @returns A function that checks if the window is undefined.
@@ -20,6 +21,7 @@ export function isApple() {
   }
   const platformExpression = /Mac|iPhone|iPod|iPad/i;
   const agent = navigator.userAgent;
+
   return platformExpression.test(agent);
 }
 
@@ -34,9 +36,9 @@ export function isAppleSafari() {
   if (rejectedExpression.test(agent)) {
     return false;
   }
+
   return isApple() && expectedExpression.test(agent);
 }
-
 
 export const globalCatchSucess = (response: AxiosResponse<BaseApiResponse>) => {
   let message = "Something went wrong";
@@ -45,19 +47,21 @@ export const globalCatchSucess = (response: AxiosResponse<BaseApiResponse>) => {
   }
   eventEmitter.emit(events.showNotification, {
     message,
-    options: { variant: "success" },
+    options: { variant: "success" }
   });
 };
 
-export const globalCatchWarning = (response: AxiosResponse<BaseApiResponse>) => {
+export const globalCatchWarning = (
+  response: AxiosResponse<BaseApiResponse>
+) => {
   let message = "Something went wrong";
   if (response?.data?.message) {
     message = response?.data.message;
   }
- 
+
   eventEmitter.emit(events.showNotification, {
     message,
-    options: { variant: "warning" },
+    options: { variant: "warning" }
   });
 };
 
@@ -68,6 +72,6 @@ export const globalCatchError = (error: AxiosError<BaseApiResponse>) => {
   }
   eventEmitter.emit(events.showNotification, {
     message,
-    options: { variant: "error" },
+    options: { variant: "error" }
   });
 };

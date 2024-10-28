@@ -9,6 +9,7 @@ export const signUpMutation = async (body: IFormInput) => {
     endpoints.auth.signup,
     body
   );
+
   return res;
 };
 export const loginMutation = async (body: IFormInput) => {
@@ -16,12 +17,14 @@ export const loginMutation = async (body: IFormInput) => {
     endpoints.auth.login,
     body
   );
+
   return res;
 };
 export const GetProfileDetails = async () => {
   const res = await axiosInstance.get<IgetSignUpQuery>(
     endpoints.auth.profileDetails
   );
+
   return res;
 };
 export const signUpProfileMutation = async (body: IFormInput) => {
@@ -29,5 +32,6 @@ export const signUpProfileMutation = async (body: IFormInput) => {
     endpoints.auth.signUpProfile,
     body
   );
+
   return res;
 };

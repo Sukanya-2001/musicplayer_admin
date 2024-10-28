@@ -1,4 +1,3 @@
-
 export enum HttpStatusCode {
   /**
    * The server has received the request headers and the client should proceed to send the request body
@@ -371,14 +370,13 @@ export enum HttpStatusCode {
    * Intended for use by intercepting proxies used to control access to the network (e.g., "captive portals" used
    * to require agreement to Terms of Service before granting full Internet access via a Wi-Fi hotspot).
    */
-  NetworkAuthenticationRequired = 511,
+  NetworkAuthenticationRequired = 511
 }
-
 
 export interface CommonMuiInputProps {
   error?: boolean;
   label?: string;
-  value?: string | Number | File | File[];
+  value?: string | number | File | File[];
   onChange?: () => void;
   helperText?: string;
   placeholder: string;
@@ -392,11 +390,11 @@ export interface IFormInput {
   password: string;
   fullName: string;
   username: string;
-  phone: Number;
+  phone: number;
   bio: string;
   first_name: string;
   last_name: string;
-  country_code: string
+  country_code: string;
 }
 
 export interface ButtonType {
@@ -425,39 +423,37 @@ export type StatusCodes = `${Extract<
 >}` extends `${infer N extends number}`
   ? N
   : never;
-  export interface BaseApiResponse {
-    message: string;
-    status: StatusCodes;
-    type: string;
-    token: string
-  }
-  
-  export type ActiveInactiveStatus = "Inactive" | "Active";
-  
-  export type UserData = {
-    first_name: string;
-    last_name: string;
-    fullName: string;
-    role: string;
-    countryCode: string;
-    phone: string;
-    email: string;
-    password: string;
-    profile_image: string;
-    workspace_name: string;
-    workspace_slug: string;
-    isEmailVerified: boolean;
-    isFreeUser: boolean;
-    otp: string;
-    signupType: string;
-    signupCompleted: boolean;
-    status: ActiveInactiveStatus;
-    isDeleted: boolean;
-    _id: string;
-    createdAt: string;
-    updatedAt: string;
-  } | null;
-  
+export interface BaseApiResponse {
+  message: string;
+  status: StatusCodes;
+  type: string;
+  token: string;
+}
 
-export { };
+export type ActiveInactiveStatus = "Inactive" | "Active";
 
+export type UserData = {
+  first_name: string;
+  last_name: string;
+  fullName: string;
+  role: string;
+  countryCode: string;
+  phone: string;
+  email: string;
+  password: string;
+  profile_image: string;
+  workspace_name: string;
+  workspace_slug: string;
+  isEmailVerified: boolean;
+  isFreeUser: boolean;
+  otp: string;
+  signupType: string;
+  signupCompleted: boolean;
+  status: ActiveInactiveStatus;
+  isDeleted: boolean;
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+} | null;
+
+export {};
