@@ -1,7 +1,7 @@
 // ** MUI Imports
 import { Theme } from "@mui/material/styles";
 
-const GlobalStyles = (theme: Theme) => ({
+const GlobalStyling = (_theme: Theme) => ({
   ".main_body": {
     minHeight: "calc(100vh - 96px)"
   },
@@ -35,7 +35,8 @@ const GlobalStyles = (theme: Theme) => ({
       }
     }
   }
+
   // Additional styles here
 });
 
-export default GlobalStyles;
+export default GlobalStyling;

@@ -1,7 +1,7 @@
-import animationData from "@/json/lottie/404.json";
 import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import animationData from "@/json/lottie/404.json";
 
 const Lottie = dynamic(() => import("lottie-react"));
 const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"));

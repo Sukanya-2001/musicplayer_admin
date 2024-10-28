@@ -38,9 +38,7 @@ const navItems = [
   }
 ];
 
-interface sidebarProps extends BoxProps {}
-
-const DashboardSidebar: React.FC<sidebarProps & BoxProps> = ({ ...props }) => {
+const DashboardSidebar: React.FC<BoxProps> = ({ ...props }) => {
   const logoRef = useRef<HTMLDivElement>(null);
   const LogoutRef = useRef<HTMLDivElement>(null);
 

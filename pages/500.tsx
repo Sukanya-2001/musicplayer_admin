@@ -1,9 +1,9 @@
-import animationData from "@/json/lottie/404.json";
-import { checkWindow } from "@/lib/functions/_helpers.lib";
-import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 import { Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import dynamic from "next/dynamic";
+import animationData from "@/json/lottie/404.json";
+import { checkWindow } from "@/lib/functions/_helpers.lib";
+import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 
 const Lottie = dynamic(() => import("lottie-react"));
 const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"));

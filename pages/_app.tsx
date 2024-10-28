@@ -1,10 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import EventListeners from "@/components/EventListener/EventListener";
 import { checkWindow } from "@/lib/functions/_helpers.lib";
-import { persistor, store } from "@/reduxtoolkit/store/store";
 import "@/styles/global.scss";
-import MuiThemeProvider from "@/themes/MuiThemeProvider";
-import createEmotionCache from "@/themes/createEmotionCache";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -14,6 +11,9 @@ import React from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "sonner";
+import createEmotionCache from "@/themes/createEmotionCache";
+import MuiThemeProvider from "@/themes/MuiThemeProvider";
+import { persistor, store } from "@/reduxtoolkit/store/store";
 
 /**
  * It suppresses the useLayoutEffect warning when running in SSR mode

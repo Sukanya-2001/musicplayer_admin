@@ -1,8 +1,8 @@
-import useEventEmitter from "@/hooks/utils/useEventEmitter";
-import events from "@/json/events/events";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { toast } from "sonner";
+import events from "@/json/events/events";
+import useEventEmitter from "@/hooks/utils/useEventEmitter";
 
 export default function EventListeners() {
   const showNotifications = useCallback(

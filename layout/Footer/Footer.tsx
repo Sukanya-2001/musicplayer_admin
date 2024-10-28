@@ -90,29 +90,6 @@ const FooterWrap = styled(Box)`
   }
 `;
 
-const navItems = [
-  {
-    name: "home",
-    route: "/"
-  },
-  {
-    name: "About",
-    route: "/about"
-  },
-  {
-    name: "Products",
-    route: "/products"
-  },
-  {
-    name: "Package",
-    route: "/package"
-  },
-  {
-    name: "Contact",
-    route: "/contact"
-  }
-];
-
 const Footer = () => {
   const navItems = [
     {
@@ -149,7 +126,7 @@ const Footer = () => {
 
             <List className="ftr-list">
               {navItems.map((item: any, index: number) => (
-                <ListItem disablePadding>
+                <ListItem disablePadding key={index}>
                   <Link
                     href={item?.route}
                     key={item.name}

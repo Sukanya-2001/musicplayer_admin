@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
-import Seo from "@/components/Seo/Seo";
-import useOnlineStatus from "@/hooks/utils/useDetectOnline";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import React from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import useOnlineStatus from "@/hooks/utils/useDetectOnline";
+import Seo from "@/components/Seo/Seo";
 
 interface wrapperProps {
   children: React.ReactNode;

@@ -1,17 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import DashboardWrapper from "@/layout/DashboardWrapper/DashboardWrapper";
 import styled from "@emotion/styled";
-import Box, { BoxProps } from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-import React from "react";
+import DashboardWrapper from "@/layout/DashboardWrapper/DashboardWrapper";
 
 export const HomeWrapper = styled(Box)``;
-interface cardProps extends BoxProps {
-  value: number;
-  description: string;
-  icon: React.ReactNode;
-}
 
 const Index = () => {
   return (

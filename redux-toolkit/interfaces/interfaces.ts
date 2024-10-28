@@ -5,8 +5,6 @@ export interface userSliceData {
   userData: userData | null;
 }
 
-export interface registrationData {}
-
 export interface globalStateInterface {
   counter: number;
 }

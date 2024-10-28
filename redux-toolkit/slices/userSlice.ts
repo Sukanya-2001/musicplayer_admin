@@ -1,7 +1,7 @@
-import { userData } from "@/types/common.type";
 import { createSlice } from "@reduxjs/toolkit";
 import { destroyCookie } from "nookies";
 import { userSliceData } from "../interfaces/interfaces";
+import { userData } from "@/types/common.type";
 
 const initialState: userSliceData = {
   isLoggedIn: false,

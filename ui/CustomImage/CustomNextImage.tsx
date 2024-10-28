@@ -13,6 +13,7 @@ const CustomNextImage = (props: ImageProps) => {
   return (
     <Image
       {...rest}
+      alt={props.alt}
       src={imgSrc}
       onError={() => {
         setImgSrc(assest.logo_img);

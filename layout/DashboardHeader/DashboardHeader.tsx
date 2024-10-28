@@ -9,7 +9,6 @@ import {
   Stack,
   Typography
 } from "@mui/material";
-import { useTheme } from "@mui/system";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -101,7 +100,6 @@ const DashboardHeader: React.FC<headerProps & BoxProps> = ({
   const avatarBlockRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState<number | undefined>(0);
   const [avatarMenuWidth, setAvatarMenuWidth] = useState<number | undefined>(0);
-  const { palette } = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

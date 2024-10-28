@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-import { GetProfileDetails } from "@/api/functions/user.api";
-import { logout, setLoginData } from "@/reduxtoolkit/slices/userSlice";
 import { useQuery } from "@tanstack/react-query";
 import { parseCookies } from "nookies";
 import { useEffect } from "react";
 import { useAppDispatch } from "../redux/useAppDispatch";
 import { useAppSelector } from "../redux/useAppSelector";
+import { logout, setLoginData } from "@/reduxtoolkit/slices/userSlice";
+import { GetProfileDetails } from "@/api/functions/user.api";
 
 const useUser = () => {
   const cookies = parseCookies();

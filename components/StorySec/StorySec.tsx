@@ -1,13 +1,13 @@
-import { StoryCardList, StorySecProps } from "@/interface/stoysec.interface";
-import {
-  StoryCardWrapper,
-  StoryWrapper
-} from "@/styles/StyledComponents/StoryWrapper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import Image from "next/image";
+import {
+  StoryCardWrapper,
+  StoryWrapper
+} from "@/styles/StyledComponents/StoryWrapper";
+import { StoryCardList, StorySecProps } from "@/interface/stoysec.interface";
 
 export function StoryCard({ content, number, title }: StoryCardList) {
   return (

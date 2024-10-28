@@ -1,12 +1,12 @@
-import { BaseApiResponse } from "@/interface/common.interface";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { parseCookies } from "nookies";
+import { baseUrlApi, sucessNotificationEndPoints } from "../endpoints";
 import {
   globalCatchError,
   globalCatchSucess,
   globalCatchWarning
 } from "@/lib/functions/_helpers.lib";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { parseCookies } from "nookies";
-import { baseUrlApi, sucessNotificationEndPoints } from "../endpoints";
+import { BaseApiResponse } from "@/interface/common.interface";
 
 // import { refreshAccessToken } from "../functions/user.api";
 

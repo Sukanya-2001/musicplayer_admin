@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const has_token = request.cookies.get("career_token")?.name;
 
-  const { pathname } = request.nextUrl;
+  // const { pathname } = request.nextUrl;
 
   if (has_token === undefined || has_token === null) {
     request.nextUrl.pathname = "/login";

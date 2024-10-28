@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable mui-path-imports/mui-path-imports */
 import { PaletteMode } from "@mui/material";
 import type { ThemeOptions } from "@mui/material/styles";
 import pallete from "./_muiPalette";
@@ -131,7 +128,7 @@ export const MuiThemeOptions = (mode: PaletteMode): ThemeOptions => {
       },
       MuiCard: {
         styleOverrides: {
-          root: ({ ownerState, theme }) => {
+          root: ({ _ownerState, theme }) => {
             return {
               borderRadius: "8px",
               boxShadow: `0px 4px 24px 0px ${theme.palette.background.paper}`
@@ -166,7 +163,7 @@ export const MuiThemeOptions = (mode: PaletteMode): ThemeOptions => {
           }
         },
         styleOverrides: {
-          paper: ({ theme }) => {
+          paper: ({ _theme }) => {
             return {
               overflow: "visible !important",
               filter: "drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32))",

@@ -1,8 +1,8 @@
+import { Button } from "@mui/material";
 import StorySec from "@/components/StorySec/StorySec";
 import assest from "@/json/assest";
 import { cardList } from "@/json/mock/cardlist.mock";
 import Wrapper from "@/layout/wrapper/Wrapper";
-import { Button } from "@mui/material";
 
 export default function Home() {
   return (

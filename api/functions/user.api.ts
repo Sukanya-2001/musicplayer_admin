@@ -1,8 +1,8 @@
+import axiosInstance from "../axiosInstance";
+import { endpoints } from "../endpoints";
 import { IFormInput } from "@/interface/common.interface";
 
 import { IgetSignUpQuery } from "@/interface/apiresp.interfaces";
-import axiosInstance from "../axiosInstance";
-import { endpoints } from "../endpoints";
 
 export const signUpMutation = async (body: IFormInput) => {
   const res = await axiosInstance.post<IgetSignUpQuery>(

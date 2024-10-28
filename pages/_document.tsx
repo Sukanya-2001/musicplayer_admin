@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-props-no-spreading */
-import createEmotionCache from "@/themes/createEmotionCache";
 
 // import theme from "@/themes/theme";
 import createEmotionServer from "@emotion/server/create-instance";
@@ -15,6 +14,7 @@ import Document, {
 } from "next/document";
 import * as React from "react";
 import { CustomAppProps } from "./_app";
+import createEmotionCache from "@/themes/createEmotionCache";
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];

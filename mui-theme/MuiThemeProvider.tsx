@@ -4,7 +4,9 @@ import React, { useMemo } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { GlobalStyles } from "@mui/system";
 import { MuiThemeOptions } from "./_muiTheme";
+import GlobalStyling from "./globalStyles";
 
 // const ThemeComponent = (props: Props) => {
 //   // ** Props
@@ -40,6 +42,7 @@ const MuiThemeProvider = ({ children }: { children: React.ReactNode }) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <GlobalStyles styles={() => GlobalStyling(theme) as any} />
         {children}
       </ThemeProvider>
     </StyledEngineProvider>
