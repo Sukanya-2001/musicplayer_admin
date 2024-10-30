@@ -8,12 +8,12 @@
     "start": "next start -p 14016",
     "lint": "next lint",
     "prepare": "husky",
-    "postinstall": "npm run prepare",
+    "postinstall": "yarn run prepare",
     "eslint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
     "eslint:fix": "eslint --fix \"**/*.+(js|jsx|ts|tsx)\"",
     "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css|scss)\"",
     "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css|scss)\"",
-    "pre-commit": "lint-staged && npm run build"
+    "pre-commit": "lint-staged && yarn run build"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
