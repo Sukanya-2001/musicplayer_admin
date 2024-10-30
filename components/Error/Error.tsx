@@ -6,6 +6,7 @@ interface ErrorType {
 
 const Error = (props: ErrorType) => {
   const { text } = props;
+
   return <Alert severity="error">{text}</Alert>;
 };
 

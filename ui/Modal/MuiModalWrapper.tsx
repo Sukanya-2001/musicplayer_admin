@@ -1,4 +1,3 @@
-import { borderRadius } from "@/themes/themeConstant";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -8,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { borderRadius } from "@/themes/themeConstant";
 
 interface MuiModalWrapperProps {
   open: boolean;

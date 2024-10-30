@@ -1,7 +1,7 @@
-import { userData } from "@/types/common.type";
 import { createSlice } from "@reduxjs/toolkit";
 import { destroyCookie } from "nookies";
 import { userSliceData } from "../interfaces/interfaces";
+import { userData } from "@/types/common.type";
 
 const initialState: userSliceData = {
   isLoggedIn: false,
@@ -10,6 +10,7 @@ const initialState: userSliceData = {
 
 export const userSlice = createSlice({
   name: "userSlice",
+
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -25,6 +26,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.isLoggedIn = false;
       state.userData = null;
+
       // cookie.remove("privy_token");
       // cookie.remove("user");
 
@@ -33,8 +35,7 @@ export const userSlice = createSlice({
 
       window.location.href = "/login";
     }
-  },
-  extraReducers: {}
+  }
 });
 
 export const { setLoginData, checkLoggedInServer, logout } = userSlice.actions;

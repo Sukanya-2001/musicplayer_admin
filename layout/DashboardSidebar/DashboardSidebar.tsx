@@ -1,13 +1,9 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable mui-path-imports/mui-path-imports */
-
 import assest from "@/json/assest";
-import { primaryColors } from "@/themes/_muiPalette";
-import FileIcon1 from "@/ui/Icons/FileIcon1";
-import LogoutIcon from "@/ui/Icons/LogoutIcon";
 import styled from "@emotion/styled";
-import { Box, BoxProps, Button, List, ListItem } from "@mui/material";
+import Box, { BoxProps } from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,33 +14,31 @@ const navItems = [
   {
     name: "Dashboard",
     route: `${commonpath}/dashboard`,
-    icon: <FileIcon1 />
+    icon: null
   },
   {
     name: "My Vehicles",
     route: `${commonpath}/my-vehicles`,
-    icon: <FileIcon1 />
+    icon: null
   },
   {
     name: "Rental Rides",
     route: `${commonpath}/rental-rides`,
-    icon: <FileIcon1 />
+    icon: null
   },
   {
     name: "Messages",
     route: `${commonpath}/messages`,
-    icon: <FileIcon1 />
+    icon: null
   },
   {
     name: "My Profile",
     route: `${commonpath}/profile`,
-    icon: <FileIcon1 />
+    icon: null
   }
 ];
 
-interface sidebarProps extends BoxProps {}
-
-const DashboardSidebar: React.FC<sidebarProps & BoxProps> = ({ ...props }) => {
+const DashboardSidebar: React.FC<BoxProps> = ({ ...props }) => {
   const logoRef = useRef<HTMLDivElement>(null);
   const LogoutRef = useRef<HTMLDivElement>(null);
 
@@ -85,9 +79,7 @@ const DashboardSidebar: React.FC<sidebarProps & BoxProps> = ({ ...props }) => {
         ))}
       </List>
       <Box className="logout_block" ref={LogoutRef}>
-        <Button href={`${commonpath}/dashboard`} startIcon={<LogoutIcon />}>
-          Logout
-        </Button>
+        <Button href={`${commonpath}/dashboard`}>Logout</Button>
       </Box>
     </DashboardSidebarWrapper>
   );
@@ -109,7 +101,6 @@ export const DashboardSidebarWrapper = styled(Box, {
   height: calc(100vh - 40px);
   overflow-y: auto;
   z-index: 5;
-  background-color: ${primaryColors?.primary};
   border-radius: 20px;
   .logo_sec {
     display: flex;
@@ -137,11 +128,11 @@ export const DashboardSidebarWrapper = styled(Box, {
         font-weight: 500;
         font-size: 14px;
         line-height: 1.5;
-        color: ${primaryColors?.white};
+
         width: 100%;
         justify-content: flex-start;
         padding: 19.5px 20px;
-        background: ${primaryColors?.primary};
+
         border-radius: 10px;
         .MuiButton-startIcon {
           margin-left: 0px;
@@ -162,7 +153,7 @@ export const DashboardSidebarWrapper = styled(Box, {
     position: absolute;
     left: 0;
     bottom: 0;
-    background-color: ${primaryColors?.primary};
+
     width: 100%;
     padding: 20px 20px 50px 20px;
     z-index: 3;
@@ -171,11 +162,11 @@ export const DashboardSidebarWrapper = styled(Box, {
       font-weight: 500;
       font-size: 14px;
       line-height: 1.5;
-      color: ${primaryColors?.white};
+
       width: 100%;
       justify-content: flex-start;
       padding: 19.5px 20px;
-      background: ${primaryColors?.primary};
+
       border-radius: 10px;
       .MuiButton-startIcon {
         margin-left: 0px;

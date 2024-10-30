@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useCallback, useEffect } from "react";
-import eventEmitter from "services/event.emitter";
 import useLatestRef from "./useLatestRef ";
+import eventEmitter from "services/event.emitter";
 
 const useEventEmitter = (
   eventName: string,
@@ -20,6 +20,7 @@ const useEventEmitter = (
     if (eventName?.trim()) {
       eventEmitter.on(eventName, handleEvent);
     }
+
     return () => {
       eventEmitter.off(eventName, handleEvent);
     };

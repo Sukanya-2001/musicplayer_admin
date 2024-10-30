@@ -1,9 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable mui-path-imports/mui-path-imports */
 import { PaletteMode } from "@mui/material";
 import type { ThemeOptions } from "@mui/material/styles";
-import { pallete, primaryColors } from "./_muiPalette";
+import pallete from "./_muiPalette";
 
 /**
  * The function `MuiThemeOptions` returns a configuration object for the Material-UI theme based on the
@@ -95,6 +92,33 @@ export const MuiThemeOptions = (mode: PaletteMode): ThemeOptions => {
         color: "#8F98A8"
       }
     },
+    shadows: [
+      "none",
+      "0px 2px 4px 0px rgba(47, 43, 61, 0.12)",
+      "0px 2px 6px 0px rgba(47, 43, 61, 0.14)",
+      "0px 3px 8px 0px rgba(47, 43, 61, 0.14)",
+      "0px 3px 9px 0px rgba(47, 43, 61, 0.15)",
+      "0px 4px 10px 0px rgba(47, 43, 61, 0.15)",
+      "0px 4px 11px 0px rgba(47, 43, 61, 0.16)",
+      "0px 4px 18px 0px rgba(47, 43, 61, 0.1)",
+      "0px 4px 13px 0px rgba(47, 43, 61, 0.18)",
+      "0px 5px 14px 0px rgba(47, 43, 61, 0.18)",
+      "0px 5px 15px 0px rgba(47, 43, 61, 0.2)",
+      "0px 5px 16px 0px rgba(47, 43, 61, 0.2)",
+      "0px 6px 17px 0px rgba(47, 43, 61, 0.22)",
+      "0px 6px 18px 0px rgba(47, 43, 61, 0.22)",
+      "0px 6px 19px 0px rgba(47, 43, 61, 0.24)",
+      "0px 7px 20px 0px rgba(47, 43, 61, 0.24)",
+      "0px 7px 21px 0px rgba(47, 43, 61, 0.26)",
+      "0px 7px 22px 0px rgba(47, 43, 61, 0.26)",
+      "0px 8px 23px 0px rgba(47, 43, 61, 0.28)",
+      "0px 8px 24px 6px rgba(47, 43, 61, 0.28)",
+      "0px 9px 25px 0px rgba(47, 43, 61, 0.3)",
+      "0px 9px 26px 0px rgba(47, 43, 61, 0.32)",
+      "0px 9px 27px 0px rgba(47, 43, 61, 0.32)",
+      "0px 10px 28px 0px rgba(47, 43, 61, 0.34)",
+      "0px 10px 30px 0px rgba(47, 43, 61, 0.34)"
+    ],
 
     components: {
       MuiSkeleton: {
@@ -104,108 +128,15 @@ export const MuiThemeOptions = (mode: PaletteMode): ThemeOptions => {
       },
       MuiCard: {
         styleOverrides: {
-          root: ({ ownerState, theme }) => {
+          root: ({ _ownerState, theme }) => {
             return {
               borderRadius: "8px",
-              boxShadow: `0px 4px 24px 0px ${primaryColors.cardShadow}`
+              boxShadow: `0px 4px 24px 0px ${theme.palette.background.paper}`
             };
           }
         }
       },
-      MuiChip: {
-        styleOverrides: {
-          root: ({ ownerState, theme }) => {
-            if (
-              ownerState.variant === "filled" &&
-              ownerState.color === "default"
-            ) {
-              return {
-                backgroundColor: primaryColors?.bodyColor,
-                color: primaryColors.mainFontColor,
-                "&:hover": {
-                  backgroundColor: primaryColors?.bodyColor,
-                  color: primaryColors.mainFontColor
-                }
-              };
-            }
-            if (
-              ownerState.variant === "filled" &&
-              ownerState.color === "success"
-            ) {
-              return {
-                backgroundColor: primaryColors?.lightGreen,
-                color: primaryColors?.deepGreen,
 
-                "&:hover": {
-                  backgroundColor: primaryColors?.lightGreen,
-                  color: primaryColors?.deepGreen
-                }
-              };
-            }
-
-            if (
-              ownerState.variant === "filled" &&
-              ownerState.color === "secondary"
-            ) {
-              return {
-                backgroundColor: primaryColors?.secondary,
-                color: primaryColors?.white,
-                border: `1px solid ${primaryColors?.secondaryBorder}`,
-                "&:hover": {
-                  background: primaryColors?.secondaryBorder,
-                  color: primaryColors?.white
-                }
-              };
-            }
-
-            if (
-              ownerState.variant === "filled" &&
-              ownerState.color === "error"
-            ) {
-              return {
-                backgroundColor: primaryColors?.chipErrorBg,
-                color: primaryColors?.chipErrorText,
-                "&:hover": {
-                  backgroundColor: primaryColors?.chipErrorBg,
-                  color: primaryColors?.chipErrorText
-                }
-              };
-            }
-
-            if (
-              ownerState.variant === "filled" &&
-              ownerState.color === "warning"
-            ) {
-              return {
-                backgroundColor: primaryColors?.warning_color,
-                color: primaryColors?.warning_text,
-                "&:hover": {
-                  backgroundColor: primaryColors?.warning_color,
-                  color: primaryColors?.warning_text
-                }
-              };
-            }
-
-            if (
-              ownerState.variant === "outlined" &&
-              ownerState.color === "info"
-            ) {
-              return {
-                backgroundColor: primaryColors?.white,
-                color: primaryColors?.white,
-                border: `1px solid ${primaryColors?.disabledBg}`,
-
-                "&:hover": {
-                  background: primaryColors?.disabledBg,
-                  borderColor: primaryColors?.disabledBg,
-
-                  color: primaryColors?.white
-                }
-              };
-            }
-          }
-        }
-      },
       MuiMenuItem: {
         styleOverrides: {
           root: () => {
@@ -232,7 +163,7 @@ export const MuiThemeOptions = (mode: PaletteMode): ThemeOptions => {
           }
         },
         styleOverrides: {
-          paper: ({ theme }) => {
+          paper: ({ _theme }) => {
             return {
               overflow: "visible !important",
               filter: "drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32))",
@@ -252,104 +183,7 @@ export const MuiThemeOptions = (mode: PaletteMode): ThemeOptions => {
         }
       },
       MuiButton: {
-        styleOverrides: {
-          root: ({ ownerState }) => {
-            if (
-              ownerState.variant === "contained" &&
-              ownerState.color === "primary"
-            ) {
-              return {
-                // backgroundColor: primaryColors?.primary,
-                background: ` linear-gradient(279deg, ${primaryColors?.primary1} -7.77%, ${primaryColors?.primary} 109.39%);`,
-                borderRadius: "50px",
-
-                "&:hover": {
-                  background: ` linear-gradient(279deg, ${primaryColors?.primary} -7.77%, ${primaryColors?.primary1} 109.39%);`,
-                  color: primaryColors?.white
-                }
-              };
-            }
-            if (
-              ownerState.variant === "contained" &&
-              ownerState.color === "success"
-            ) {
-              return {
-                backgroundColor: primaryColors?.info,
-                color: primaryColors?.white,
-                border: `1px solid ${primaryColors?.infoBorder}`,
-                "&:hover": {
-                  background: primaryColors?.infoBorder,
-                  color: primaryColors?.white
-                }
-              };
-            }
-
-            if (
-              ownerState.variant === "contained" &&
-              ownerState.color === "secondary"
-            ) {
-              return {
-                backgroundColor: primaryColors?.secondary,
-                color: primaryColors?.white,
-                border: `1px solid ${primaryColors?.secondaryBorder}`,
-                "&:hover": {
-                  background: primaryColors?.secondaryBorder,
-                  color: primaryColors?.white
-                }
-              };
-            }
-
-            if (
-              ownerState.variant === "contained" &&
-              ownerState.color === "error"
-            ) {
-              return {
-                backgroundColor: primaryColors?.errorMain,
-                color: primaryColors?.white,
-                border: `1px solid ${primaryColors?.errorMain}`,
-                "&:hover": {
-                  background: primaryColors?.errorMain,
-                  color: primaryColors?.white
-                }
-              };
-            }
-            if (
-              ownerState.variant === "outlined" &&
-              ownerState.color === "info"
-            ) {
-              return {
-                backgroundColor: primaryColors?.white,
-                color: primaryColors?.white,
-                border: `1px solid ${primaryColors?.disabledBg}`,
-
-                "&:hover": {
-                  background: primaryColors?.disabledBg,
-                  borderColor: primaryColors?.disabledBg,
-
-                  color: primaryColors?.white
-                }
-              };
-            }
-
-            if (
-              ownerState.variant === "outlined" &&
-              ownerState.color === "inherit"
-            ) {
-              return {
-                backgroundColor: primaryColors?.white,
-                color: primaryColors?.black,
-                border: `1px solid ${primaryColors?.disabledBg}`,
-
-                "&:hover": {
-                  background: primaryColors?.disabledBg,
-                  borderColor: primaryColors?.disabledBg,
-
-                  color: primaryColors?.black
-                }
-              };
-            }
-          }
-        },
+        styleOverrides: {},
         defaultProps: {
           disableElevation: true
         }

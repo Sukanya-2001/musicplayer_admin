@@ -32,8 +32,10 @@ export function isCookieAllowed() {
       document.cookie = "testcookie";
       cookieEnabled = document.cookie.indexOf("testcookie") !== -1;
     }
+
     return cookieEnabled;
   }
+
   //on server return always true
   return true;
 }
@@ -53,8 +55,10 @@ export function getCookie(cname: string) {
         return c.substring(name.length, c.length);
       }
     }
+
     return "";
   }
+
   //if it runs in server return null, by default next-cookie-wrapper wraps in redux
   //or get cookies in methods getInitialProps etc
   return null;

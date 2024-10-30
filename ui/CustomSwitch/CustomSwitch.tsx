@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable unused-imports/no-unused-vars */
-import { primaryColors } from "@/themes/_muiPalette";
 import styled from "@emotion/styled";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 
 export const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
+))(({}) => ({
   width: 66,
   height: 36,
   padding: 0,
@@ -20,7 +17,6 @@ export const IOSSwitch = styled((props: SwitchProps) => (
       transform: "translateX(31px)",
       color: "#fff",
       "& + .MuiSwitch-track": {
-        backgroundColor: primaryColors.info,
         opacity: 1,
         border: 0
       },
@@ -29,7 +25,6 @@ export const IOSSwitch = styled((props: SwitchProps) => (
       }
     },
     "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: primaryColors.info,
       border: "6px solid #fff"
     }
   },
@@ -42,6 +37,7 @@ export const IOSSwitch = styled((props: SwitchProps) => (
     borderRadius: 26 / 2,
     backgroundColor: "#E9E9EA",
     opacity: 1
+
     // transition: theme.transitions.create(['background-color'], {
     //   duration: 500,
     // }),

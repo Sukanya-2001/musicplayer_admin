@@ -1,6 +1,6 @@
+import dynamic from "next/dynamic";
 import offlineJson from "@/json/lottie/offline.json";
 import { checkWindow } from "@/lib/functions/_helpers.lib";
-import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("lottie-react"));
 const Wrapper = dynamic(() => import("@/layout/wrapper/Wrapper"));
