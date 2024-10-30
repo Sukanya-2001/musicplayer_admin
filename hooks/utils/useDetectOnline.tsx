@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { toast } from "sonner";
 import { checkWindow } from "@/lib/functions/_helpers.lib";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 function useOnlineStatus() {
   const _Window = checkWindow() ? window : null;

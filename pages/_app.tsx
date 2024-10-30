@@ -1,19 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import EventListeners from "@/components/EventListener/EventListener";
 import { checkWindow } from "@/lib/functions/_helpers.lib";
+import { persistor, store } from "@/reduxtoolkit/store/store";
 import "@/styles/global.scss";
+import createEmotionCache from "@/themes/createEmotionCache";
+import MuiThemeProvider from "@/themes/MuiThemeProvider";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppContext, AppProps } from "next/app";
 import App from "next/app";
 import React from "react";
+import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { Toaster } from "sonner";
-import createEmotionCache from "@/themes/createEmotionCache";
-import MuiThemeProvider from "@/themes/MuiThemeProvider";
-import { persistor, store } from "@/reduxtoolkit/store/store";
 
 /**
  * It suppresses the useLayoutEffect warning when running in SSR mode
@@ -57,7 +57,16 @@ export default function CustomApp({
           <CacheProvider value={emotionCache}>
             <MuiThemeProvider>
               <CssBaseline />
-              <Toaster richColors position="bottom-left" />
+              <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                  duration: 2000
+                }}
+              />
 
               <EventListeners />
               <Component {...pageProps} />
