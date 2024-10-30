@@ -12,7 +12,7 @@
     "eslint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
     "eslint:fix": "eslint --fix \"**/*.+(js|jsx|ts|tsx)\"",
     "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css|scss)\"",
-    "prettier:fix": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css|scss)\"",
+    "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css|scss)\"",
     "pre-commit": "lint-staged && npm run build"
   },
   "dependencies": {
