@@ -47,7 +47,8 @@ export const globalCatchSucess = (response: AxiosResponse<BaseApiResponse>) => {
   }
   eventEmitter.emit(events.showNotification, {
     message,
-    options: { variant: "success" }
+    // options: { variant: "success" }
+    variant: "success"
   });
 };
 

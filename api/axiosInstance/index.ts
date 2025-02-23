@@ -7,6 +7,7 @@ import {
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { parseCookies } from "nookies";
 import { baseUrlApi, sucessNotificationEndPoints } from "../endpoints";
+import toast from "react-hot-toast";
 
 // import { refreshAccessToken } from "../functions/user.api";
 
@@ -32,6 +33,7 @@ axiosInstance.interceptors.response.use(
     if (sucessNotificationEndPoints.includes(res.config.url as string)) {
       if (res?.data?.status !== 200) {
         globalCatchWarning(res);
+        // toast.error(res?.data.message);
       } else {
         globalCatchSucess(res);
       }
