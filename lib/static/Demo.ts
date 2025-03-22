@@ -1,7 +1,6 @@
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CollectionsOutlinedIcon from "@mui/icons-material/CollectionsOutlined";
 import ExploreIcon from "@mui/icons-material/Explore";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import LanguageIcon from "@mui/icons-material/Language";
 import LibraryAddOutlinedIcon from "@mui/icons-material/LibraryAddOutlined";
@@ -22,16 +21,15 @@ export const sideFirstItems: SidebarItem[] = [
   { name: "Users", route: "/dashboard/users", icon: CollectionsOutlinedIcon },
   { name: "Songs", route: "/dashboard/songs", icon: PersonSearchOutlinedIcon },
   { name: "Artists", route: "/dashboard/artists", icon: ExploreIcon },
-  { name: "Albums", route: "/dashboard/albums", icon: LanguageIcon }
+  { name: "Albums", route: "/dashboard/album", icon: LanguageIcon }
 ];
 
 export const sideSecondItems: SidebarItem[] = [
-  { name: "Recently Added", route: "/recent", icon: LibraryAddOutlinedIcon },
-  { name: "Most Played", route: "/most-played", icon: PlaylistPlayOutlinedIcon }
+  { name: "About", route: "/recent", icon: LibraryAddOutlinedIcon },
+  { name: "Contact", route: "/most-played", icon: PlaylistPlayOutlinedIcon }
 ];
 
 export const sideThirdItems: SidebarItem[] = [
-  { name: "Favourite", route: "/favourite", icon: FavoriteOutlinedIcon },
   {
     name: "My Profile",
     route: "javascript:void(0)",
