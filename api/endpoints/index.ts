@@ -10,9 +10,13 @@ export const mediaUrl = (url: string) => {
 
 export const endpoints = {
   auth: {
+    login: "/login",
+    forgotEmail: "",
+    otpValidation: "",
+    resetPassword: "",
+
     signup: "user/existence",
     signUpProfile: "user/signup",
-    login: "user/login",
     profileDetails: "user/profile/get",
     profileUpdate: "user/profile/update"
   },

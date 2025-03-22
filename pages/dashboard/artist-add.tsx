@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import { HomeWrapper } from ".";
+import { HomeWrapper } from "./artists";
 
 const artistSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
