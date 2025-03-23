@@ -13,7 +13,6 @@ import { useMemo } from "react";
 export const HomeWrapper = styled(Box)``;
 const headers = ["Name", "Description", "Date", "Status", "Action"];
 
-
 const Artists = () => {
   const router = useRouter();
   const {
@@ -29,7 +28,7 @@ const Artists = () => {
     if (artistData) {
       return artistData?.pages?.flatMap((s) => s?.artists || []);
     }
-    
+
     return [];
   }, [JSON.stringify(artistData)]);
 
@@ -63,24 +62,22 @@ const Artists = () => {
           >
             <CircularProgress />
           </Box>
-        ) : (
+        ) : !!artistList && artistList?.length > 0 ? (
           <CustomTable tableHeadList={headers}>
-            {!!artistList && artistList?.length > 0 ? (
-              artistList?.map((row) => (
-                <ArtistTableRow key={row?._id} row={row} refetch={refetch}/>
-              ))
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
-              >
-                Artist not found.
-              </Box>
-            )}
+            {artistList?.map((row) => (
+              <ArtistTableRow key={row?._id} row={row} refetch={refetch} />
+            ))}
           </CustomTable>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            Artist not found.
+          </Box>
         )}
 
         {!!hasNextPage && (
