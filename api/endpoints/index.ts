@@ -21,12 +21,12 @@ export const endpoints = {
     profileUpdate: "user/profile/update"
   },
   artist: {
-    add: "",
-    edit: "",
-    delete: "",
-    get: "",
-    change_status: "",
-    getArtistInfo: ""
+    add: "admin/artist/create",
+    edit: "admin/artist/artist-field-update",
+    delete: "admin/artist/delete-artist",
+    get: "admin/artist/get-artists",
+    change_status: "admin/artist/artist-status-update",
+    getArtistInfo: "admin/artist/get-artist-info"
   },
   cms: {
     about: "aboutpolicy/details",

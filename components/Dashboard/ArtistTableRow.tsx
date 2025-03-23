@@ -1,3 +1,8 @@
+import {
+  Artist,
+  usechangeStatusArtistHook,
+  useDeleteArtistHook
+} from "@/api/functions/artist.api";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box, Button } from "@mui/material";
@@ -7,10 +12,11 @@ import MenuItem from "@mui/material/MenuItem";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
+import dayjs from "dayjs";
 import * as React from "react";
-import CustomSwitch from "./CustomSwitch";
-import { useDeleteArtistHook } from "@/api/functions/artist.api";
 import { CustomModal } from "./CustomModal";
+import CustomSwitch from "./CustomSwitch";
+import { useRouter } from "next/router";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,19 +38,37 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 interface OrderProps {
-  row: any;
+  row: Artist;
+  refetch: () => void;
 }
 
-export const ArtistTableRow: React.FC<OrderProps> = ({ row }) => {
+export const ArtistTableRow: React.FC<OrderProps> = ({ row, refetch }) => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [deleteModal, setDeleteModal] = React.useState<boolean>(false);
+  const [statusChangeModal, setStatusChangeModal] =
+    React.useState<boolean>(false);
 
-  const {mutateAsync: deleteMutate, isPending: deletePending} = useDeleteArtistHook(row?._id, { imageKey: row?.image });
+  const { mutateAsync: deleteMutate, isPending: deletePending } =
+    useDeleteArtistHook(row?._id, { imageKey: row?.file });
+  const { mutateAsync: statusMutate, isPending: statusChangePending } =
+    usechangeStatusArtistHook(row?._id);
 
+  const confirmDelete = async () => {
+    const res = await deleteMutate();
+    if (res) {
+      refetch();
+      setDeleteModal(false);
+    }
+  };
 
-  const confirmDelete = () => {
-    deleteMutate();
-  }
+  const confirmStatusChange = async () => {
+    const res = await statusMutate();
+    if (res?.status === 200) {
+      refetch();
+      setStatusChangeModal(false);
+    }
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -64,14 +88,27 @@ export const ArtistTableRow: React.FC<OrderProps> = ({ row }) => {
     setAnchorEl(null);
   };
 
+  const handleStatusModalClose = () => {
+    setStatusChangeModal(false);
+  };
+
+  const handleEdit = () =>{
+    router.push(`/dashboard/artist-edit/${row?._id}`)
+  }
+
   return (
     <StyledTableRow>
-      <StyledTableCell align="center">{row.name}</StyledTableCell>
-      <StyledTableCell align="center">{row.description}</StyledTableCell>
-      <StyledTableCell align="center">{row.date}</StyledTableCell>
+      <StyledTableCell align="center">{row?.title}</StyledTableCell>
+      <StyledTableCell align="center">{row?.description}</StyledTableCell>
+      <StyledTableCell align="center">
+        {dayjs(row?.createdAt).format("DD MMM, YYYY")}
+      </StyledTableCell>
       <StyledTableCell align="center">
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <CustomSwitch checked={row.status} onChange={() => {}} />
+          <CustomSwitch
+            checked={row?.status === "active"}
+            onChange={() => setStatusChangeModal(true)}
+          />
         </Box>
       </StyledTableCell>
       <StyledTableCell align="center">
@@ -85,7 +122,7 @@ export const ArtistTableRow: React.FC<OrderProps> = ({ row }) => {
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           transformOrigin={{ vertical: "top", horizontal: "center" }}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleEdit}>
             <Button variant="text">Edit</Button>
           </MenuItem>
           <MenuItem onClick={handleDeleteModal}>
@@ -105,6 +142,19 @@ export const ArtistTableRow: React.FC<OrderProps> = ({ row }) => {
         text="Do you want to delete this artist?"
         onConfirm={confirmDelete}
         isLoading={deletePending}
+      />
+      <CustomModal
+        open={statusChangeModal}
+        onClose={handleStatusModalClose}
+        icon={
+          <HighlightOffIcon
+            fontSize="large"
+            sx={{ color: "red", fontSize: "5rem" }}
+          />
+        }
+        text="Do you want to change the status?"
+        onConfirm={confirmStatusChange}
+        isLoading={statusChangePending}
       />
     </StyledTableRow>
   );

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { useGetArtistHook } from "@/api/functions/artist.api";
+import { Artist, useGetArtistHook } from "@/api/functions/artist.api";
 import { ArtistTableRow } from "@/components/Dashboard/ArtistTableRow";
 import { CustomTable } from "@/components/Dashboard/CustomTable";
 import DashboardWrapper from "@/layout/DashboardWrapper/DashboardWrapper";
@@ -8,56 +8,30 @@ import styled from "@emotion/styled";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 
 export const HomeWrapper = styled(Box)``;
 const headers = ["Name", "Description", "Date", "Status", "Action"];
 
-const data = [
-  {
-    _id: 1234,
-    name: "John Doe",
-    description: "Description",
-    date: "20 Oct, 2020",
-    status: true
-  },
-  {
-    _id: 1234,
-    name: "Jane Smith",
-    description: "Description",
-    date: "20 Oct, 2020",
-    status: false
-  },
-  {
-    _id: 1234,
-    name: "Alice Johnson",
-    description: "Description",
-    date: "20 Oct, 2020",
-    status: true
-  },
-  {
-    _id: 1234,
-    name: "Bob Brown",
-    description: "Description",
-    date: "20 Oct, 2020",
-    status: false
-  }
-];
+
 const Artists = () => {
   const router = useRouter();
   const {
-    // data: artistData,
+    data: artistData,
     isLoading,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage
+    isFetchingNextPage,
+    refetch
   } = useGetArtistHook();
 
-  // const artistList: any = useMemo(() => {
-  //   if (artistData) {
-  //     return artistData?.pages?.flatMap((s) => s?.data || []);
-  //   }
-  //   return [];
-  // }, [JSON.stringify(artistData)]);
+  const artistList: Artist[] = useMemo(() => {
+    if (artistData) {
+      return artistData?.pages?.flatMap((s) => s?.artists || []);
+    }
+    
+    return [];
+  }, [JSON.stringify(artistData)]);
 
   return (
     <DashboardWrapper headerTitle="Artists">
@@ -91,7 +65,21 @@ const Artists = () => {
           </Box>
         ) : (
           <CustomTable tableHeadList={headers}>
-            {data?.map((row) => <ArtistTableRow key={row.name} row={row} />)}
+            {!!artistList && artistList?.length > 0 ? (
+              artistList?.map((row) => (
+                <ArtistTableRow key={row?._id} row={row} refetch={refetch}/>
+              ))
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                Artist not found.
+              </Box>
+            )}
           </CustomTable>
         )}
 

@@ -9,7 +9,7 @@ module.exports = {
     includePaths: [path.join(__dirname, "styles")]
   },
   images: {
-    domains: ["career-utility.dedicateddevelopers.us"]
+    domains: ["music-player-backend-eji6.onrender.com"]
   },
   compress: true,
   devIndicators: {

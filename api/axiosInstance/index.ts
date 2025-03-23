@@ -31,11 +31,10 @@ axiosInstance.interceptors.response.use(
     // only show success notification on this routes
 
     if (sucessNotificationEndPoints.includes(res.config.url as string)) {
-      if (res?.data?.status !== 200) {
-        globalCatchWarning(res);
-        // toast.error(res?.data.message);
-      } else {
+      if (res?.data?.status === 200 || res?.data?.status === 201) {
         globalCatchSucess(res);
+      } else {
+        globalCatchWarning(res);
       }
     }
 

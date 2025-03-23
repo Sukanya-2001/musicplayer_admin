@@ -1,4 +1,7 @@
-import { useAddArtistHook } from "@/api/functions/artist.api";
+import {
+  useEditArtistHook,
+  useGetArtistInfoHook
+} from "@/api/functions/artist.api";
 import DashboardWrapper from "@/layout/DashboardWrapper/DashboardWrapper";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,17 +13,23 @@ import {
   Grid,
   TextField
 } from "@mui/material";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { HomeWrapper } from "./artists";
-import { artistPayload, artistSchema } from "Schema/artist.schema";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { artistPayload, artistSchema } from "Schema/artist.schema";
+import { HomeWrapper } from "../artists";
+import { useQueryClient } from "@tanstack/react-query";
+import { GET_ARTIST } from "@/hooks/queryKeys";
 
-const ArtistAdd = () => {
+const ArtistEdit = () => {
   const [selectedArtistImage, setSelectedArtistImage] = useState<string | null>(
     null
   );
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const id = router.query.id;
+  const { data: artistInfo } = useGetArtistInfoHook(id as string);
+
   const {
     control,
     handleSubmit,
@@ -37,13 +46,16 @@ const ArtistAdd = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedArtistImage(imageUrl);
-      setValue('imageFile', file);
+      setValue("imageFile", file);
     }
   };
 
-  const { mutateAsync: addMutate, isPending: addPending } = useAddArtistHook();
+  const { mutateAsync: updateMutate, isPending: updatePending } =
+    useEditArtistHook(id as string);
 
   const onSubmit = (data: artistPayload) => {
+    console.log(data);
+
     const formData = new FormData();
     formData.append("title", data?.title);
     formData.append("description", data?.subtitle);
@@ -51,16 +63,30 @@ const ArtistAdd = () => {
     if (data?.imageFile instanceof File) {
       formData.append("image", data?.imageFile);
     }
-    addMutate(formData, {
+    updateMutate(formData, {
       onSuccess: (res) => {
-        if(res?.status === 201){
+        console.log(res);
+        
+        if (res) {
+            console.log("here");
+            
           reset();
-          router.push("/dashboard/artists");
+          queryClient.refetchQueries({ queryKey: [GET_ARTIST], exact: true });
+          
+          //   router.push("/dashboard/artists");
         }
       }
-    }
-    );
+    });
   };
+
+  useEffect(() => {
+    if (artistInfo) {
+      setValue("title", artistInfo?.title);
+      setValue("subtitle", artistInfo?.description);
+      setValue("imageFile", artistInfo?.file);
+      setSelectedArtistImage(artistInfo?.file);
+    }
+  }, [artistInfo]);
 
   return (
     <DashboardWrapper headerTitle="Add Artist">
@@ -68,13 +94,13 @@ const ArtistAdd = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
+              <label>Artist Name</label>
               <Controller
                 name="title"
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Artist name"
                     fullWidth
                     margin="normal"
                     error={!!errors.title}
@@ -84,13 +110,13 @@ const ArtistAdd = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
+              <label>Artist Description</label>
               <Controller
                 name="subtitle"
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Description"
                     fullWidth
                     margin="normal"
                     error={!!errors.subtitle}
@@ -160,10 +186,10 @@ const ArtistAdd = () => {
             type="submit"
             variant="contained"
             color="primary"
-            disabled={addPending}
+            disabled={updatePending}
             sx={{ mt: 3, mb: 2, width: "200px" }}
           >
-            {addPending ? (
+            {updatePending ? (
               <CircularProgress size={28} sx={{ color: "white" }} />
             ) : (
               "Submit"
@@ -175,4 +201,4 @@ const ArtistAdd = () => {
   );
 };
 
-export default ArtistAdd;
+export default ArtistEdit;
