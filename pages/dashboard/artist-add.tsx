@@ -10,17 +10,20 @@ import {
   Grid,
   TextField
 } from "@mui/material";
+import { artistPayload, artistSchema } from "Schema/artist.schema";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { HomeWrapper } from "./artists";
-import { artistPayload, artistSchema } from "Schema/artist.schema";
-import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
+import { GET_ARTIST } from "@/hooks/queryKeys";
 
 const ArtistAdd = () => {
   const [selectedArtistImage, setSelectedArtistImage] = useState<string | null>(
     null
   );
   const router = useRouter();
+  const queryClient= useQueryClient();
   const {
     control,
     handleSubmit,
@@ -37,7 +40,7 @@ const ArtistAdd = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedArtistImage(imageUrl);
-      setValue('imageFile', file);
+      setValue("imageFile", file);
     }
   };
 
@@ -53,13 +56,13 @@ const ArtistAdd = () => {
     }
     addMutate(formData, {
       onSuccess: (res) => {
-        if(res?.status === 201){
+        if (res?.status === 201) {
           reset();
+          queryClient.refetchQueries({ queryKey: [GET_ARTIST], exact: true });
           router.push("/dashboard/artists");
         }
       }
-    }
-    );
+    });
   };
 
   return (

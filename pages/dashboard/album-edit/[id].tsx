@@ -1,4 +1,7 @@
-import { useAddAlbumHook } from "@/api/functions/album.api";
+import {
+  useEditAlbumHook,
+  useGetAlbumInfoHook
+} from "@/api/functions/album.api";
 import { GET_ALBUM } from "@/hooks/queryKeys";
 import DashboardWrapper from "@/layout/DashboardWrapper/DashboardWrapper";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
@@ -13,22 +16,24 @@ import {
 } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { albumPayload, albumSchema } from "Schema/album.schema";
-import { HomeWrapper } from "./album";
+import { HomeWrapper } from "../album";
 
-const AlbumAdd = () => {
+const AlbumEdit = () => {
   const [selectedArtistImage, setSelectedArtistImage] = useState<string | null>(
     null
   );
   const router = useRouter();
   const queryClient = useQueryClient();
+  const id = router.query.id;
+  const { data: albumInfo } = useGetAlbumInfoHook(id as string);
+
   const {
     control,
     handleSubmit,
     setValue,
-    reset,
     formState: { errors }
   } = useForm<albumPayload>({
     resolver: yupResolver(albumSchema)
@@ -43,26 +48,40 @@ const AlbumAdd = () => {
       setValue("imageFile", file);
     }
   };
-  const { mutateAsync: addMutate, isPending: addPending } = useAddAlbumHook();
+  const { mutateAsync: updateMutate, isPending: updatePending } =
+    useEditAlbumHook(id as string);
 
   const onSubmit = (data: albumPayload) => {
     console.log(data);
     const formData = new FormData();
     formData.append("title", data?.title);
     formData.append("description", data?.subtitle);
-    if (data?.imageFile instanceof File) {
-      formData.append("image", data?.imageFile);
+    if (
+      !!data?.imageFile &&
+      (data.imageFile instanceof File ||
+        data.imageFile instanceof Blob ||
+        typeof data.imageFile === "string")
+    ) {
+      formData.append("image", data.imageFile);
     }
-    addMutate(formData, {
+    updateMutate(formData, {
       onSuccess: (res) => {
-        if (res?.status === 201) {
-          reset();
+        if (res) {
           queryClient.refetchQueries({ queryKey: [GET_ALBUM], exact: true });
           router.push("/dashboard/album");
         }
       }
     });
   };
+
+  useEffect(() => {
+    if (albumInfo) {
+      setValue("title", albumInfo?.title);
+      setValue("subtitle", albumInfo?.description);
+      setValue("imageFile", albumInfo?.file);
+      setSelectedArtistImage(albumInfo?.file);
+    }
+  }, [albumInfo]);
 
   return (
     <DashboardWrapper headerTitle="Add Album">
@@ -71,13 +90,13 @@ const AlbumAdd = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
+                <label>Album name</label>
               <Controller
                 name="title"
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Album name"
                     fullWidth
                     margin="normal"
                     error={!!errors.title}
@@ -87,13 +106,13 @@ const AlbumAdd = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
+                <label>Album Description</label>
               <Controller
                 name="subtitle"
                 control={control}
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Description"
                     fullWidth
                     margin="normal"
                     error={!!errors.subtitle}
@@ -163,10 +182,10 @@ const AlbumAdd = () => {
             type="submit"
             variant="contained"
             color="primary"
-            disabled={addPending}
+            disabled={updatePending}
             sx={{ mt: 3, mb: 2, width: "200px" }}
           >
-            {addPending ? (
+            {updatePending ? (
               <CircularProgress size={28} sx={{ color: "white" }} />
             ) : (
               "Submit"
@@ -178,4 +197,4 @@ const AlbumAdd = () => {
   );
 };
 
-export default AlbumAdd;
+export default AlbumEdit;

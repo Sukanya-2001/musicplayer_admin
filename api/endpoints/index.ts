@@ -28,6 +28,14 @@ export const endpoints = {
     change_status: "admin/artist/artist-status-update",
     getArtistInfo: "admin/artist/get-artist-info"
   },
+  album: {
+    add: "admin/album/create",
+    edit: "admin/album/album-field-update",
+    delete: "admin/album/delete-album",
+    get: "admin/album/get-albums",
+    change_status: "admin/album/album-status-update",
+    getAlbumInfo: "admin/album/get-album-info"
+  },
   cms: {
     about: "aboutpolicy/details",
     faq: "faq/all"
@@ -42,5 +50,12 @@ export const sucessNotificationEndPoints = [
 
   endpoints.artist.add,
   endpoints.artist.edit,
-  endpoints.artist.delete
+  endpoints.artist.delete,
+  endpoints.artist.change_status,
+
+  endpoints.album.add,
+  endpoints.album.edit,
+  endpoints.album.delete,
+  endpoints.album.change_status,
+  
 ];

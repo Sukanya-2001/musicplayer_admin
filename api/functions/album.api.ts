@@ -1,21 +1,21 @@
 import {
-  ADD_ARTIST,
-  ARTIST_INFO,
-  CHANGE_STATUS_ARTIST,
-  DELETE_ARTIST,
-  Edit_ARTIST,
-  GET_ARTIST
+  ADD_ALBUM,
+  ALBUM_INFO,
+  CHANGE_STATUS_ALBUM,
+  DELETE_ALBUM,
+  Edit_ALBUM,
+  GET_ALBUM
 } from "@/hooks/queryKeys";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import axiosInstance from "../axiosInstance";
 import { endpoints } from "../endpoints";
 
-export const useAddArtistHook = () => {
+export const useAddAlbumHook = () => {
   return useMutation({
-    mutationKey: [ADD_ARTIST],
+    mutationKey: [ADD_ALBUM],
     mutationFn: async (payload: FormData) => {
-      const res = await axiosInstance.post(endpoints.artist.add, payload);
+      const res = await axiosInstance.post(endpoints.album.add, payload);
 
       return res?.data;
     },
@@ -25,12 +25,12 @@ export const useAddArtistHook = () => {
   });
 };
 
-export const useEditArtistHook = (id: string) => {
+export const useEditAlbumHook = (id: string) => {
   return useMutation({
-    mutationKey: [Edit_ARTIST, id],
+    mutationKey: [Edit_ALBUM, id],
     mutationFn: async (payload: FormData) => {
       const res = await axiosInstance.put(
-        `${endpoints.artist.edit}/${id}`,
+        `${endpoints.album.edit}/${id}`,
         payload
       );
 
@@ -42,7 +42,7 @@ export const useEditArtistHook = (id: string) => {
   });
 };
 
-export interface Artist {
+export interface Album {
   _id: string;
   title: string;
   description: string;
@@ -52,21 +52,21 @@ export interface Artist {
   updatedAt: string;
 }
 
-export interface GetArtistRes {
-  artists: Artist[];
+export interface GetAlbumRes {
+  albums: Album[];
   totalPage: number;
-  totalArtist: number;
+  totalAlbum: number;
   page: number;
   limit: number;
   status: number;
 }
 
-export const useGetArtistHook = () => {
+export const useGetAlbumHook = () => {
   return useInfiniteQuery({
-    queryKey: [GET_ARTIST],
+    queryKey: [GET_ALBUM],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await axiosInstance.get<GetArtistRes>(
-        `${endpoints.artist.get}?page=${pageParam}&limit=8`
+      const res = await axiosInstance.get<GetAlbumRes>(
+        `${endpoints.album.get}?page=${pageParam}&limit=8`
       );
 
       return res?.data;
@@ -80,19 +80,20 @@ export const useGetArtistHook = () => {
 };
 
 export interface GetInfoRes {
-  artist: Artist;
+  album: Album;
 }
 
-export const useGetArtistInfoHook = (id: string) => {
+export const useGetAlbumInfoHook = (id: string) => {
   return useQuery({
-    queryKey: [ARTIST_INFO, id],
+    queryKey: [ALBUM_INFO, id],
     queryFn: async () => {
       const res = await axiosInstance.get<GetInfoRes>(
-        `${endpoints.artist.getArtistInfo}/${id}`
+        `${endpoints.album.getAlbumInfo}/${id}`
       );
 
-      return res?.data?.artist;
-    }
+      return res?.data?.album;
+    },
+    refetchOnMount: true
   });
 };
 
@@ -100,12 +101,12 @@ type DeleteParams = {
   imageKey: string;
 };
 
-export const useDeleteArtistHook = (id: string, body: DeleteParams) => {
+export const useDeleteAlbumHook = (id: string, body: DeleteParams) => {
   return useMutation({
-    mutationKey: [DELETE_ARTIST, id],
+    mutationKey: [DELETE_ALBUM, id],
     mutationFn: async () => {
       const res = await axiosInstance.delete(
-        `${endpoints.artist.delete}/${id}`,
+        `${endpoints.album.delete}/${id}`,
         { data: body }
       );
       return res?.data;
@@ -116,12 +117,12 @@ export const useDeleteArtistHook = (id: string, body: DeleteParams) => {
   });
 };
 
-export const usechangeStatusArtistHook = (id: string) => {
+export const usechangeStatusAlbumHook = (id: string) => {
   return useMutation({
-    mutationKey: [CHANGE_STATUS_ARTIST, id],
+    mutationKey: [CHANGE_STATUS_ALBUM, id],
     mutationFn: async () => {
       const res = await axiosInstance.put(
-        `${endpoints.artist.change_status}/${id}`
+        `${endpoints.album.change_status}/${id}`
       );
 
       return res?.data;
