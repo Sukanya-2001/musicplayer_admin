@@ -63,7 +63,9 @@ export const globalCatchWarning = (
 
   eventEmitter.emit(events.showNotification, {
     message,
-    options: { variant: "warning" }
+    
+    // options: { variant: "warning" }
+    variant: "warning"
   });
 };
 
@@ -74,6 +76,8 @@ export const globalCatchError = (error: AxiosError<BaseApiResponse>) => {
   }
   eventEmitter.emit(events.showNotification, {
     message,
-    options: { variant: "error" }
+
+    // options: { variant: "error" }
+    variant: "error"
   });
 };

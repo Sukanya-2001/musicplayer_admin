@@ -1,4 +1,6 @@
 import { useAuthLoginHook } from "@/api/functions/user.api";
+import { setCookieClient } from "@/lib/functions/storage.lib";
+import { setLoginData } from "@/reduxtoolkit/slices/userSlice";
 import InputFieldCommon from "@/ui/CommonInput/CommonInput";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -12,10 +14,11 @@ import {
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { loginPayload, loginSchema } from "Schema/auth.schema";
 
 const LoginForm: React.FC = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
   const {
     register,
@@ -26,30 +29,26 @@ const LoginForm: React.FC = () => {
     resolver: yupResolver(loginSchema)
   });
 
-  const { isPending: loginPending } = useAuthLoginHook();
+  const { mutateAsync: loginMutate, isPending: loginPending } =
+    useAuthLoginHook();
 
   const onSubmit = (data: loginPayload) => {
-    reset();
-    console.log(data);
-
-    router.push("/dashboard");
-
-    // loginMutate(data, {
-    //   onSuccess: (res) => {
-    //     if (res?.status === 200) {
-    //       reset({
-    //         email: "",
-    //         password: ""
-    //       });
-    //       const token = res?.data?.token;
-    //       if (token) {
-    //         dispatch(setLoginData(res?.data?.user));
-    //         setCookieClient(process.env.NEXT_APP_TOKEN_NAME!, token)
-    //         router.push("/dashboard")
-    //       }
-    //     }
-    //   }
-    // });
+    loginMutate(data, {
+      onSuccess: (res) => {
+        if (res?.status === 200) {
+          reset({
+            email: "",
+            password: ""
+          });
+          const token = res?.refreshToken;
+          if (token) {
+            dispatch(setLoginData(res?.data?.data));
+            setCookieClient(process.env.NEXT_APP_TOKEN_NAME!, token);
+            router.push("/dashboard");
+          }
+        }
+      }
+    });
   };
 
   const handleForgotPass = () => {
@@ -101,6 +100,7 @@ const LoginForm: React.FC = () => {
               type="password"
               variant="standard"
               autoComplete="current-password"
+              isPassword
               {...register("password")}
               error={!!errors?.password}
               helperText={errors?.password?.message}

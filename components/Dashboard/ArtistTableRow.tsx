@@ -1,31 +1,34 @@
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import TableRow from "@mui/material/TableRow";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
 import CustomSwitch from "./CustomSwitch";
-import { Box, Button } from "@mui/material";
+import { useDeleteArtistHook } from "@/api/functions/artist.api";
+import { CustomModal } from "./CustomModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14
+  }
+}));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: theme.palette.action.hover
   },
   "&:last-child td, &:last-child th": {
-    border: 0,
-  },
+    border: 0
+  }
 }));
 
 interface OrderProps {
@@ -34,12 +37,30 @@ interface OrderProps {
 
 export const ArtistTableRow: React.FC<OrderProps> = ({ row }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [deleteModal, setDeleteModal] = React.useState<boolean>(false);
+
+  const {mutateAsync: deleteMutate, isPending: deletePending} = useDeleteArtistHook(row?._id, { imageKey: row?.image });
+
+
+  const confirmDelete = () => {
+    deleteMutate();
+  }
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDeleteModal = () => {
+    setDeleteModal(true);
+    setAnchorEl(null);
+  };
+
+  const handleModalClose = () => {
+    setDeleteModal(false);
     setAnchorEl(null);
   };
 
@@ -67,11 +88,24 @@ export const ArtistTableRow: React.FC<OrderProps> = ({ row }) => {
           <MenuItem onClick={handleClose}>
             <Button variant="text">Edit</Button>
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleDeleteModal}>
             <Button variant="text">Delete</Button>
           </MenuItem>
         </Menu>
       </StyledTableCell>
+      <CustomModal
+        open={deleteModal}
+        onClose={handleModalClose}
+        icon={
+          <HighlightOffIcon
+            fontSize="large"
+            sx={{ color: "red", fontSize: "5rem" }}
+          />
+        }
+        text="Do you want to delete this artist?"
+        onConfirm={confirmDelete}
+        isLoading={deletePending}
+      />
     </StyledTableRow>
   );
 };

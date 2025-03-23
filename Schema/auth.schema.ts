@@ -5,8 +5,8 @@ export const loginSchema = yup.object().shape({
   password: yup
     .string()
     .required("Password is required")
-    .min(6, "Minimum character limit should be 6 to 20")
-    .max(20, "Minimum character limit should be 6 to 20")
+    .min(4, "Minimum character limit should be 4 to 20")
+    .max(20, "Minimum character limit should be 4 to 20")
 });
 
 export type loginPayload = yup.InferType<typeof loginSchema>;

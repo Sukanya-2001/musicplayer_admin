@@ -9,14 +9,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import * as yup from "yup";
+import { albumPayload, albumSchema } from "Schema/album.schema";
 import { HomeWrapper } from "./album";
 
-const artistSchema = yup.object().shape({
-  title: yup.string().required("Title is required"),
-  subtitle: yup.string().required("Subtitle is required"),
-  imageFile: yup.mixed().required("Image file is required")
-});
 const AlbumAdd = () => {
   const [selectedArtistImage, setSelectedArtistImage] = useState<string | null>(
     null
@@ -34,12 +29,18 @@ const AlbumAdd = () => {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm({
-    resolver: yupResolver(artistSchema)
+  } = useForm<albumPayload>({
+    resolver: yupResolver(albumSchema)
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: albumPayload) => {
     console.log(data);
+    const formData = new FormData();
+    formData.append("name", data?.title);
+    formData.append("description", data?.subtitle);
+    if (data?.imageFile instanceof File) {
+      formData.append("image", data?.imageFile);
+    }
   };
   console.log(errors);
 
@@ -56,7 +57,7 @@ const AlbumAdd = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Title"
+                    label="Album name"
                     fullWidth
                     margin="normal"
                     error={!!errors.title}
@@ -72,7 +73,7 @@ const AlbumAdd = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Subtitle"
+                    label="Description"
                     fullWidth
                     margin="normal"
                     error={!!errors.subtitle}
@@ -89,13 +90,10 @@ const AlbumAdd = () => {
                 height="100%"
                 paddingLeft={1}
               >
-
                 {/* Image Preview Box */}
                 <Box
                   width={70}
                   height={60}
-
-                  // border="1px solid #ccc"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"

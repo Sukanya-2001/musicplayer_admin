@@ -1,5 +1,5 @@
 export const baseUrl = process.env.NEXT_APP_BASE_URL;
-export const baseUrlApi = `${process.env.NEXT_APP_BASE_URL}/api/`;
+export const baseUrlApi = `${process.env.NEXT_APP_BASE_URL}/`;
 export const baseUrlMedia = process.env.NEXT_APP_BASE_URL;
 
 // api doc => https://militarymoves-admin.dedicateddevelopers.us/apidoc
@@ -10,7 +10,7 @@ export const mediaUrl = (url: string) => {
 
 export const endpoints = {
   auth: {
-    login: "/login",
+    login: "user/login",
     forgotEmail: "",
     otpValidation: "",
     resetPassword: "",
@@ -20,6 +20,14 @@ export const endpoints = {
     profileDetails: "user/profile/get",
     profileUpdate: "user/profile/update"
   },
+  artist: {
+    add: "",
+    edit: "",
+    delete: "",
+    get: "",
+    change_status: "",
+    getArtistInfo: ""
+  },
   cms: {
     about: "aboutpolicy/details",
     faq: "faq/all"
@@ -27,8 +35,12 @@ export const endpoints = {
 };
 
 export const sucessNotificationEndPoints = [
-  // endpoints.auth.signup,
+  endpoints.auth.login,
   endpoints.auth.signUpProfile,
   endpoints.auth.login,
-  endpoints.auth.profileUpdate
+  endpoints.auth.profileUpdate,
+
+  endpoints.artist.add,
+  endpoints.artist.edit,
+  endpoints.artist.delete
 ];

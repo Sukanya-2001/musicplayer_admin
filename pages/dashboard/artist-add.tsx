@@ -1,7 +1,10 @@
+import { useAddArtistHook } from "@/api/functions/artist.api";
 import DashboardWrapper from "@/layout/DashboardWrapper/DashboardWrapper";
+import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
+  CircularProgress,
   FormControl,
   FormHelperText,
   Grid,
@@ -9,14 +12,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import * as yup from "yup";
 import { HomeWrapper } from "./artists";
+import { artistPayload, artistSchema } from "Schema/artist.schema";
 
-const artistSchema = yup.object().shape({
-  title: yup.string().required("Title is required"),
-  subtitle: yup.string().required("Subtitle is required"),
-  imageFile: yup.mixed().required("Image file is required")
-});
 const ArtistAdd = () => {
   const [selectedArtistImage, setSelectedArtistImage] = useState<string | null>(
     null
@@ -34,19 +32,26 @@ const ArtistAdd = () => {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm({
+  } = useForm<artistPayload>({
     resolver: yupResolver(artistSchema)
   });
 
-  const onSubmit = (data: any) => {
+  const { mutateAsync: addMutate, isPending: addPending } = useAddArtistHook();
+
+  const onSubmit = (data: artistPayload) => {
     console.log(data);
+    const formData = new FormData();
+    formData.append("name", data?.title);
+    formData.append("description", data?.subtitle);
+    if (data?.imageFile instanceof File) {
+      formData.append("image", data?.imageFile);
+    }
+    addMutate(formData);
   };
-  console.log(errors);
 
   return (
     <DashboardWrapper headerTitle="Add Artist">
       <HomeWrapper>
-        <h2>Add Artist</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -56,7 +61,7 @@ const ArtistAdd = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Title"
+                    label="Artist name"
                     fullWidth
                     margin="normal"
                     error={!!errors.title}
@@ -72,7 +77,7 @@ const ArtistAdd = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Subtitle"
+                    label="Description"
                     fullWidth
                     margin="normal"
                     error={!!errors.subtitle}
@@ -89,13 +94,10 @@ const ArtistAdd = () => {
                 height="100%"
                 paddingLeft={1}
               >
-
                 {/* Image Preview Box */}
                 <Box
                   width={70}
                   height={60}
-
-                  // border="1px solid #ccc"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -141,6 +143,19 @@ const ArtistAdd = () => {
               </Box>
             </Grid>
           </Grid>
+          <CustomButtonPrimary
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={addPending}
+            sx={{ mt: 3, mb: 2, width: "200px" }}
+          >
+            {addPending ? (
+              <CircularProgress size={28} sx={{ color: "white" }} />
+            ) : (
+              "Submit"
+            )}
+          </CustomButtonPrimary>
         </form>
       </HomeWrapper>
     </DashboardWrapper>

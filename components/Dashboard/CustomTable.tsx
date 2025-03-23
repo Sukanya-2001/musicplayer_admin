@@ -33,7 +33,7 @@ export const CustomTable = ({ tableHeadList, children }: TableProps) => {
         <TableHead>
           <TableRow>
             {tableHeadList?.map((item, index) => (
-              <TableCell key={index} align="center">
+              <TableCell key={index} align="center" sx={{fontSize:"18px", fontWeight: 800}}>
                 {item}
               </TableCell>
             ))}

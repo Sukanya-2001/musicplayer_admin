@@ -66,8 +66,10 @@ export function getCookie(cname: string) {
 
 export function setCookieClient(key: string, value: string) {
   setCookie(null, key, value, {
-    path: "/"
+    path: "/",
+    expires: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000),
   });
+  
 }
 
 export { checkWindow };
