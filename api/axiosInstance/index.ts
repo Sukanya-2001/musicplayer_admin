@@ -7,12 +7,12 @@ import {
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { parseCookies } from "nookies";
 import { baseUrlApi, sucessNotificationEndPoints } from "../endpoints";
-import toast from "react-hot-toast";
 
 // import { refreshAccessToken } from "../functions/user.api";
 
 const axiosInstance = axios.create({
-  baseURL: baseUrlApi
+  baseURL: baseUrlApi,
+  withCredentials: true
 });
 
 axiosInstance.interceptors.request.use((config) => {

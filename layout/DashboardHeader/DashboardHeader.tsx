@@ -1,16 +1,11 @@
-import assest from "@/json/assest";
+import usePopUpConfirmation from "@/hooks/utils/usePopUpConfirmation";
+import { logout } from "@/reduxtoolkit/slices/userSlice";
+import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
 import styled from "@emotion/styled";
-import {
-  Box,
-  BoxProps,
-  Button,
-  Menu,
-  MenuItem,
-  Stack,
-  Typography
-} from "@mui/material";
-import Image from "next/image";
+import { Box, BoxProps, Menu, Stack, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 export const DashboardHeaderStyled = styled(Box)`
   position: fixed;
@@ -98,15 +93,21 @@ const DashboardHeader: React.FC<headerProps & BoxProps> = ({
 }) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const avatarBlockRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+  const { confirmAction } = usePopUpConfirmation();
+
   const [headerHeight, setHeaderHeight] = useState<number | undefined>(0);
   const [avatarMenuWidth, setAvatarMenuWidth] = useState<number | undefined>(0);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleLogout = async () => {
+    const { isConfirmed } = await confirmAction({
+      title: "Logout",
+      text: "Are you sure you want to logout?",
+      confirmButtonText: "Yes, Logout"
+    });
+    if (!isConfirmed) return;
+    dispatch(logout());
+    toast.success("Logout successfully.");
   };
 
   useEffect(() => {
@@ -159,39 +160,15 @@ const DashboardHeader: React.FC<headerProps & BoxProps> = ({
           ref={avatarBlockRef}
         >
           <Box className="avatar_block">
-            <Button
+            <CustomButtonPrimary
               id="basic-button"
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
+              variant="contained"
+              onClick={handleLogout}
               className="avatar_btn"
               disableRipple
             >
-              <Typography component="i" className="avatar_image">
-                <Image
-                  src={assest?.logo}
-                  alt="avatar image"
-                  width={30}
-                  height={30}
-                />
-              </Typography>
-              <Typography>Howard</Typography>
-            </Button>
-            <AvatarMenu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button"
-              }}
-              avatarMenuWidth={avatarMenuWidth}
-            >
-              <MenuItem onClick={handleClose}>become a consumer</MenuItem>
-              <MenuItem onClick={handleClose}>My Profile </MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </AvatarMenu>
+              Logout
+            </CustomButtonPrimary>
           </Box>
         </Stack>
       </Stack>

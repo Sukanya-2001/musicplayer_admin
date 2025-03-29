@@ -1,4 +1,5 @@
 import { useAuthLoginHook } from "@/api/functions/user.api";
+import { getRedirectUrl } from "@/hooks/utils/commonUtils";
 import { setCookieClient } from "@/lib/functions/storage.lib";
 import { setLoginData } from "@/reduxtoolkit/slices/userSlice";
 import InputFieldCommon from "@/ui/CommonInput/CommonInput";
@@ -18,8 +19,9 @@ import { useDispatch } from "react-redux";
 import { loginPayload, loginSchema } from "Schema/auth.schema";
 
 const LoginForm: React.FC = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const { redirect } = router.query;
+  const dispatch = useDispatch();
   const {
     register,
     reset,
@@ -42,9 +44,10 @@ const LoginForm: React.FC = () => {
           });
           const token = res?.refreshToken;
           if (token) {
+            const navigatePath = getRedirectUrl(redirect as string);
             dispatch(setLoginData(res?.data?.data));
             setCookieClient(process.env.NEXT_APP_TOKEN_NAME!, token);
-            router.push("/dashboard");
+            router.replace(navigatePath);
           }
         }
       }
