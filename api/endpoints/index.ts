@@ -36,6 +36,9 @@ export const endpoints = {
     change_status: "admin/album/album-status-update",
     getAlbumInfo: "admin/album/get-album-info"
   },
+  song: {
+    add: "admin/song/create",
+  },
   cms: {
     about: "aboutpolicy/details",
     faq: "faq/all"

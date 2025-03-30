@@ -16,3 +16,5 @@ export const GET_ALBUM = "GET_ALBUM"
 export const DELETE_ALBUM = "DELETE_ALBUM"
 export const CHANGE_STATUS_ALBUM = "CHANGE_STATUS_ALBUM"
 export const ALBUM_INFO = "ALBUM_INFO"
+
+export const ADD_SONG = "ADD_SONG"

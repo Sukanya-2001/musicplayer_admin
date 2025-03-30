@@ -79,3 +79,24 @@ export const SongsData = [
     date: "12 Feb, 2025"
   }
 ];
+
+export const songCategories = [
+  { value: "romantic", label: "❤️ Romantic" },
+  { value: "sad", label: "😢 Sad" },
+  { value: "lofi", label: "🎵 Lofi" },
+  { value: "happy", label: "😊 Happy" },
+  { value: "pop", label: "🎤 Pop" },
+  { value: "rock", label: "🎸 Rock" },
+  { value: "jazz", label: "🎷 Jazz" },
+  { value: "classical", label: "🎼 Classical" },
+  { value: "hiphop", label: "🎧 Hip-Hop" },
+  { value: "instrumental", label: "🎻 Instrumental" },
+  { value: "party", label: "🎉 Party" },
+  { value: "chill", label: "🌙 Chill" },
+  { value: "motivational", label: "🔥 Motivational" },
+  { value: "devotional", label: "🙏 Devotional" },
+  { value: "bollywood", label: "🎬 Bollywood" },
+  { value: "kpop", label: "🎶 K-Pop" },
+  { value: "folk", label: "🌾 Folk" }
+];
+
