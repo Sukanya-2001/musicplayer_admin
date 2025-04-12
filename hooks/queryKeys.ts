@@ -1,20 +1,21 @@
-export const ADMIN_LOGIN ="ADMIN_LOGIN"
-export const ADMIN_FROGOT_EMAIL = "ADMIN_FROGOT_EMAIL"
-export const ADMIN_OTP = "ADMIN_OTP"
-export const ADMIN_RESET_PASSWORD = "ADMIN_RESET_PASSWORD"
+export const ADMIN_LOGIN = "ADMIN_LOGIN";
+export const ADMIN_FROGOT_EMAIL = "ADMIN_FROGOT_EMAIL";
+export const ADMIN_OTP = "ADMIN_OTP";
+export const ADMIN_RESET_PASSWORD = "ADMIN_RESET_PASSWORD";
 
-export const ADD_ARTIST = "ADD_ARTIST"
-export const Edit_ARTIST = "Edit_ARTIST"
-export const GET_ARTIST = "GET_ARTIST"
-export const DELETE_ARTIST = "DELETE_ARTIST"
-export const CHANGE_STATUS_ARTIST = "CHANGE_STATUS_ARTIST"
-export const ARTIST_INFO = "ARTIST_INFO"
+export const ADD_ARTIST = "ADD_ARTIST";
+export const Edit_ARTIST = "Edit_ARTIST";
+export const GET_ARTIST = "GET_ARTIST";
+export const DELETE_ARTIST = "DELETE_ARTIST";
+export const CHANGE_STATUS_ARTIST = "CHANGE_STATUS_ARTIST";
+export const ARTIST_INFO = "ARTIST_INFO";
 
-export const ADD_ALBUM = "ADD_ALBUM"
-export const Edit_ALBUM = "Edit_ALBUM"
-export const GET_ALBUM = "GET_ALBUM"
-export const DELETE_ALBUM = "DELETE_ALBUM"
-export const CHANGE_STATUS_ALBUM = "CHANGE_STATUS_ALBUM"
-export const ALBUM_INFO = "ALBUM_INFO"
+export const ADD_ALBUM = "ADD_ALBUM";
+export const Edit_ALBUM = "Edit_ALBUM";
+export const GET_ALBUM = "GET_ALBUM";
+export const DELETE_ALBUM = "DELETE_ALBUM";
+export const CHANGE_STATUS_ALBUM = "CHANGE_STATUS_ALBUM";
+export const ALBUM_INFO = "ALBUM_INFO";
 
-export const ADD_SONG = "ADD_SONG"
+export const ADD_SONG = "ADD_SONG";
+export const GET_SONGS = "GET_SONGS";

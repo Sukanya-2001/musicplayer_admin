@@ -38,6 +38,7 @@ export const endpoints = {
   },
   song: {
     add: "admin/song/create",
+    allSongs: "admin/song/get-songs"
   },
   cms: {
     about: "aboutpolicy/details",
@@ -59,6 +60,5 @@ export const sucessNotificationEndPoints = [
   endpoints.album.add,
   endpoints.album.edit,
   endpoints.album.delete,
-  endpoints.album.change_status,
-  
+  endpoints.album.change_status
 ];

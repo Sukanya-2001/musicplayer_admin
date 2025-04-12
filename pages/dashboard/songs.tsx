@@ -2,11 +2,14 @@
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 
+import { ISongs, useGetSongsHook } from "@/api/functions/song.api";
 import { CustomTable } from "@/components/Dashboard/CustomTable";
 import { SongTableRow } from "@/components/Dashboard/SongTableRow";
 import DashboardWrapper from "@/layout/DashboardWrapper/DashboardWrapper";
 import CustomButtonPrimary from "@/ui/CustomButtons/CustomButtonPrimary";
+import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 
 export const HomeWrapper = styled(Box)``;
 const headers = [
@@ -14,53 +17,28 @@ const headers = [
   "Artist",
   "Album",
   "Language",
-  "Time",
   "Date",
   "Status",
   "Action"
 ];
 
-const data = [
-  {
-    name: "John Doe",
-    artist: "Arijit Singh, Shreya Ghosal, Atif Aslam",
-    album: "123-456-7890",
-    language: "Hindi",
-    time: "03:15",
-    date: "20 Oct, 2020",
-    status: true
-  },
-  {
-    name: "Jane Smith",
-    artist: "Arijit Singh, Shreya Ghosal, Atif Aslam",
-    album: "987-654-3210",
-    language: "Hindi",
-    time: "03:15",
-    date: "20 Oct, 2020",
-    status: false
-  },
-  {
-    name: "Alice Johnson",
-    artist: "Arijit Singh, Shreya Ghosal, Atif Aslam",
-    album: "456-789-1234",
-    language: "Hindi",
-    time: "03:15",
-    date: "20 Oct, 2020",
-    status: true
-  },
-  {
-    name: "Bob Brown",
-    artist: "Arijit Singh, Shreya Ghosal, Atif Aslam",
-    album: "789-123-4567",
-    language: "Hindi",
-    time: "03:15",
-    date: "20 Oct, 2020",
-    status: false
-  }
-];
-
 const Songs = () => {
   const router = useRouter();
+  const {
+    data: songsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useGetSongsHook();
+
+  const songsList: ISongs[] = useMemo(() => {
+    if (songsData) {
+      return songsData?.pages?.flatMap((s) => s?.songs || []);
+    }
+
+    return [];
+  }, [JSON.stringify(songsData)]);
 
   return (
     <DashboardWrapper headerTitle="Songs">
@@ -81,9 +59,61 @@ const Songs = () => {
             Add new
           </CustomButtonPrimary>
         </Box>
-        <CustomTable tableHeadList={headers}>
-          {data?.map((row) => <SongTableRow key={row.name} row={row} />)}
-        </CustomTable>
+        {isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : !!songsList && songsList?.length > 0 ? (
+          <CustomTable tableHeadList={headers}>
+            {songsList?.map((row) => (
+              <SongTableRow key={row?._id} row={row} />
+            ))}
+          </CustomTable>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            Songs not found.
+          </Box>
+        )}
+
+        {!!hasNextPage && (
+          <Box
+            p={2}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            {" "}
+            <CustomButtonPrimary
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                fetchNextPage();
+              }}
+              type="button"
+              disabled={isFetchingNextPage}
+            >
+              {isFetchingNextPage ? (
+                <CircularProgress size={28} sx={{ color: "white" }} />
+              ) : (
+                "Load more"
+              )}
+            </CustomButtonPrimary>
+          </Box>
+        )}
       </HomeWrapper>
     </DashboardWrapper>
   );
